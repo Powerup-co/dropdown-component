@@ -1,11 +1,24 @@
 @import '~common_styles/colors.styl'
 
+$animation-name = 'fadeInUp'
+
 .nav-bar
     display: flex
     align-items: center
     justify-content: center
     height: 80px
     background: $white
+    position: relative
+
+.sub-nav-bar
+    position: absolute
+    top: 100%
+    left: 0
+    width: 100%
+    background: $white
+    display: none
 
 .nav-bar-link
     margin: 0 25px
+    &:hover + .sub-nav-bar
+        display: block

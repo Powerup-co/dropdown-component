@@ -16,6 +16,22 @@ export default function DefaultPage() {
                     text: 'WOMEN',
                     path: '/women',
                     isBold: true,
+                    subLinkList: [
+                        {
+                            text: 'MEN',
+                            path: '/men',
+                            isBold: true,
+                        },
+                        {
+                            text: 'PLUS SIZE',
+                            path: '/plus-size',
+                            isBold: true,
+                        },
+                        {
+                            text: 'COLLECTIONS',
+                            path: '/collections',
+                        },
+                    ],
                 },
                 {
                     text: 'MEN',
