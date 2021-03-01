@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useRef} from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
@@ -16,31 +16,61 @@ export default function NavBar({
     className,
     forceUseDefaulLinkTag,
 }) {
+    const navBarRef = useRef(null)
+
     return (
-        <div className={cn(styles['nav-bar'], className)}>
-            {
-                linkList.map(({subLinkList = [], ...link}) => (
-                    <Fragment key={link.path}>
-                        <NavBarLink
-                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                            {...link}
-                            className={cn(styles['nav-bar-link'], link.className)}
-                        />
-                        <div className={cn(styles['sub-nav-bar'])}>
-                            {
-                                subLinkList.map(link => (
-                                    <NavBarLink
-                                        key={link.path}
-                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                        {...link}
-                                        className={cn(styles['nav-bar-link'], link.className)}
-                                    />
-                                ))
-                            }
-                        </div>
-                    </Fragment>
-                ))
-            }
+        <div className={cn(styles['nav-bar-wrapper'], className)}>
+            <div
+                ref={navBarRef}
+                className={styles['nav-bar']}
+            >
+                {
+                    linkList.map(({subLinkList = [], ...link}) => (
+                        <Fragment key={link.path || link.text}>
+                            <NavBarLink
+                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                {...link}
+                                className={cn(styles['nav-bar-link'], link.className)}
+                            />
+                            <div className={cn(styles['sub-nav-bar'])}>
+                                {
+                                    subLinkList.map((row, rowIdx) => (
+                                        <div
+                                            key={`row-${rowIdx}`}
+                                            className={styles['sub-nav-bar-row']}
+                                            style={{
+                                                minWidth: navBarRef?.current?.clientWidth
+                                            }}
+                                        >
+                                            {
+                                                row.map((col, colIdx) => (
+                                                    <div key={`col-${colIdx}`} className={styles['sub-nav-bar-col']}>
+                                                        {
+                                                            col.map(subLink => (
+                                                                <div key={`${subLink.path || subLink.text}-${rowIdx}-${colIdx}`}>
+                                                                    <NavBarLink
+                                                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                                        {...subLink}
+                                                                        className={cn(
+                                                                            styles['nav-bar-link'],
+                                                                            styles['sub-nav-bar-link'],
+                                                                            subLink.className
+                                                                        )}
+                                                                    />
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </Fragment>
+                    ))
+                }
+            </div>
         </div>
     )
 }
@@ -49,6 +79,7 @@ NavBar.propTypes = {
     linkList: PropTypes.arrayOf(PropTypes.shape({
         ...Link.propTypes,
         ...NavBarLink.propTypes,
+        path: PropTypes.string,
     })).isRequired,
 
     className: PropTypes.string,

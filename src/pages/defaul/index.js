@@ -17,20 +17,75 @@ export default function DefaultPage() {
                     path: '/women',
                     isBold: true,
                     subLinkList: [
-                        {
-                            text: 'MEN',
-                            path: '/men',
-                            isBold: true,
-                        },
-                        {
-                            text: 'PLUS SIZE',
-                            path: '/plus-size',
-                            isBold: true,
-                        },
-                        {
-                            text: 'COLLECTIONS',
-                            path: '/collections',
-                        },
+                        [
+                            [
+                                {
+                                    text: 'Tops',
+                                    isBold: true,
+                                },
+                                {
+                                    text: 'Tanks',
+                                    path: '/tanks',
+                                },
+                                {
+                                    text: 'T-Shirts',
+                                    path: '/t-shirts',
+                                },
+                                {
+                                    text: 'Long Sleeve',
+                                    path: '/long-sleeve',
+                                },
+                                {
+                                    text: 'Sweatshirts',
+                                    path: '/sweatshirts',
+                                },
+                            ],
+                            [
+                                {
+                                    text: 'Bottoms',
+                                    isBold: true,
+                                },
+                                {
+                                    text: 'Leggings',
+                                    path: '/leggings',
+                                },
+                                {
+                                    text: 'Capris',
+                                    path: '/capris',
+                                },
+                                {
+                                    text: 'Shorts',
+                                    path: '/shorts',
+                                },
+                                {
+                                    text: 'Pants',
+                                    path: '/pants',
+                                },
+                            ],
+                            [
+                                {
+                                    text: 'Bras',
+                                    path: '/bras',
+                                    isBold: true,
+                                },
+                                {
+                                    text: 'Socks',
+                                    path: '/socks',
+                                    isBold: true,
+                                },
+                                {
+                                    text: 'Shoes',
+                                    path: '/shoes',
+                                    isBold: true,
+                                },
+                                {
+                                    text: 'Sale',
+                                    path: '/sale',
+                                    isBold: true,
+                                    withNotificationDot: true,
+                                },
+                            ],
+                        ],
                     ],
                 },
                 {
