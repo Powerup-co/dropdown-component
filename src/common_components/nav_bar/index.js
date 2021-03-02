@@ -25,7 +25,7 @@ export default function NavBar({
                 className={styles['nav-bar']}
             >
                 {
-                    linkList.map(({subLinkList = [], ...link}) => (
+                    linkList.map(({subLinkList = [], banner, ...link}) => (
                         <Fragment key={link.path || link.text}>
                             <NavBarLink
                                 forceUseDefaulLinkTag={forceUseDefaulLinkTag}
@@ -37,32 +37,38 @@ export default function NavBar({
                                     subLinkList.map((row, rowIdx) => (
                                         <div
                                             key={`row-${rowIdx}`}
-                                            className={styles['sub-nav-bar-row']}
+                                            className={styles['sub-nav-bar-row-wrapper']}
                                             style={{
-                                                minWidth: navBarRef?.current?.clientWidth
+                                                // minWidth: navBarRef?.current?.clientWidth,
+                                                minWidth: 529,
                                             }}
                                         >
-                                            {
-                                                row.map((col, colIdx) => (
-                                                    <div key={`col-${colIdx}`} className={styles['sub-nav-bar-col']}>
-                                                        {
-                                                            col.map(subLink => (
-                                                                <div key={`${subLink.path || subLink.text}-${rowIdx}-${colIdx}`}>
-                                                                    <NavBarLink
-                                                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                                        {...subLink}
-                                                                        className={cn(
-                                                                            styles['nav-bar-link'],
-                                                                            styles['sub-nav-bar-link'],
-                                                                            subLink.className
-                                                                        )}
-                                                                    />
-                                                                </div>
-                                                            ))
-                                                        }
-                                                    </div>
-                                                ))
-                                            }
+                                            <div className={styles['sub-nav-bar-row']}>
+                                                {
+                                                    row.map((col, colIdx) => (
+                                                        <div key={`col-${colIdx}`} className={styles['sub-nav-bar-col']}>
+                                                            {
+                                                                col.map(subLink => (
+                                                                    <div key={`${subLink.path || subLink.text}-${rowIdx}-${colIdx}`}>
+                                                                        <NavBarLink
+                                                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                                            {...subLink}
+                                                                            className={cn(
+                                                                                styles['nav-bar-link'],
+                                                                                styles['sub-nav-bar-link'],
+                                                                                subLink.className
+                                                                            )}
+                                                                        />
+                                                                    </div>
+                                                                ))
+                                                            }
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                            <div>
+                                                {banner}
+                                            </div>
                                         </div>
                                     ))
                                 }

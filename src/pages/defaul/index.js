@@ -2,6 +2,8 @@ import React from 'react'
 
 import NavBar from 'common_components/nav_bar'
 
+import styles from './styles.styl'
+
 export default function DefaultPage() {
     return (
         <NavBar
@@ -87,6 +89,16 @@ export default function DefaultPage() {
                             ],
                         ],
                     ],
+                    banner: (
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                    ),
                 },
                 {
                     text: 'MEN',
