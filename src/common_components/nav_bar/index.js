@@ -40,7 +40,7 @@ export default function NavBar({
                                             className={styles['sub-nav-bar-row-wrapper']}
                                             style={{
                                                 // minWidth: navBarRef?.current?.clientWidth,
-                                                minWidth: 529,
+                                                minWidth: 603,
                                             }}
                                         >
                                             <div className={styles['sub-nav-bar-row']}>
@@ -78,7 +78,7 @@ export default function NavBar({
                                             className={styles['recently-viewed']}
                                             style={{
                                                 // minWidth: navBarRef?.current?.clientWidth,
-                                                minWidth: 529,
+                                                minWidth: 603,
                                             }}
                                         >
                                             <p>
@@ -86,11 +86,21 @@ export default function NavBar({
                                             </p>
                                             <div className={styles['recently-viewed-link-list']}>
                                                 {
-                                                    recentlyViewed.map(({component, ...link}) => component || (
-                                                        <NavBarLink
-                                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                            {...link}
-                                                        />
+                                                    recentlyViewed.map(({component, ...link}, idx) => (
+                                                        component
+                                                            ? React.cloneElement(
+                                                                component,
+                                                                {
+                                                                    key: `component-${idx}`,
+                                                                }
+                                                            )
+                                                            : (
+                                                                <NavBarLink
+                                                                    key={link.path || link.text}
+                                                                    forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                                    {...link}
+                                                                />
+                                                            )
                                                     ))
                                                 }
                                             </div>

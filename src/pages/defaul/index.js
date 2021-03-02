@@ -23,66 +23,66 @@ export default function DefaultPage() {
                         [
                             [
                                 {
-                                    text: 'Tops',
+                                    text: 'TOPS',
                                     isBold: true,
                                 },
                                 {
-                                    text: 'Tanks',
+                                    text: 'TANKS',
                                     path: '/tanks',
                                 },
                                 {
-                                    text: 'T-Shirts',
+                                    text: 'T-SHIRTS',
                                     path: '/t-shirts',
                                 },
                                 {
-                                    text: 'Long Sleeve',
+                                    text: 'LONG SLEEVE',
                                     path: '/long-sleeve',
                                 },
                                 {
-                                    text: 'Sweatshirts',
+                                    text: 'SWEATSHIRTS',
                                     path: '/sweatshirts',
                                 },
                             ],
                             [
                                 {
-                                    text: 'Bottoms',
+                                    text: 'BOTTOMS',
                                     isBold: true,
                                 },
                                 {
-                                    text: 'Leggings',
+                                    text: 'LEGGINGS',
                                     path: '/leggings',
                                 },
                                 {
-                                    text: 'Capris',
+                                    text: 'CAPRIS',
                                     path: '/capris',
                                 },
                                 {
-                                    text: 'Shorts',
+                                    text: 'SHORTS',
                                     path: '/shorts',
                                 },
                                 {
-                                    text: 'Pants',
+                                    text: 'PANTS',
                                     path: '/pants',
                                 },
                             ],
                             [
                                 {
-                                    text: 'Bras',
+                                    text: 'BRAS',
                                     path: '/bras',
                                     isBold: true,
                                 },
                                 {
-                                    text: 'Socks',
+                                    text: 'SOCKS',
                                     path: '/socks',
                                     isBold: true,
                                 },
                                 {
-                                    text: 'Shoes',
+                                    text: 'SHOES',
                                     path: '/shoes',
                                     isBold: true,
                                 },
                                 {
-                                    text: 'Sale',
+                                    text: 'SALE',
                                     path: '/sale',
                                     isBold: true,
                                     withNotificationDot: true,
