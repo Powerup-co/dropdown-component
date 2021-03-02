@@ -25,7 +25,7 @@ export default function NavBar({
                 className={styles['nav-bar']}
             >
                 {
-                    linkList.map(({subLinkList = [], banner, ...link}) => (
+                    linkList.map(({subLinkList = [], banner, recentlyViewed = [], ...link}) => (
                         <Fragment key={link.path || link.text}>
                             <NavBarLink
                                 forceUseDefaulLinkTag={forceUseDefaulLinkTag}
@@ -71,6 +71,31 @@ export default function NavBar({
                                             </div>
                                         </div>
                                     ))
+                                }
+                                {
+                                    !!recentlyViewed.length && (
+                                        <div
+                                            className={styles['recently-viewed']}
+                                            style={{
+                                                // minWidth: navBarRef?.current?.clientWidth,
+                                                minWidth: 529,
+                                            }}
+                                        >
+                                            <p>
+                                                RECENTLY VIEWED
+                                            </p>
+                                            <div className={styles['recently-viewed-link-list']}>
+                                                {
+                                                    recentlyViewed.map(({component, ...link}) => component || (
+                                                        <NavBarLink
+                                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                            {...link}
+                                                        />
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                    )
                                 }
                             </div>
                         </Fragment>

@@ -25,3 +25,28 @@
         color: $sandy-brown
         margin: 0
         font-size: 9px
+
+.recently-viewed
+    width: 70px
+    height: 97px
+    border-radius: 2px
+    display: block
+    margin-right: 18px
+    background-size: @width @height
+    background-position: 0 0
+    &:last-child
+        margin-right: 0
+    &:hover:before
+        display: none
+    &.recently-viewed-1
+        bg-image('~pages/defaul/images/recently_viewed_1.png')
+    &.recently-viewed-2
+        bg-image('~pages/defaul/images/recently_viewed_2.png')
+    &.recently-viewed-3
+        bg-image('~pages/defaul/images/recently_viewed_3.png')
+    &.recently-viewed-4
+        bg-image('~pages/defaul/images/recently_viewed_4.png')
+    &.recently-viewed-5
+        bg-image('~pages/defaul/images/recently_viewed_5.png')
+    &.recently-viewed-6
+        bg-image('~pages/defaul/images/recently_viewed_6.png')

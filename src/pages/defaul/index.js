@@ -1,4 +1,5 @@
 import React from 'react'
+import cn from 'classnames'
 
 import NavBar from 'common_components/nav_bar'
 
@@ -99,6 +100,32 @@ export default function DefaultPage() {
                             </p>
                         </div>
                     ),
+                    recentlyViewed: [
+                        {
+                            path: '/recently_viewed_1',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-1']),
+                        },
+                        {
+                            path: '/recently_viewed_2',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-2']),
+                        },
+                        {
+                            path: '/recently_viewed_3',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-3']),
+                        },
+                        {
+                            path: '/recently_viewed_4',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-4']),
+                        },
+                        {
+                            path: '/recently_viewed_5',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-5']),
+                        },
+                        {
+                            path: '/recently_viewed_6',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-6']),
+                        },
+                    ],
                 },
                 {
                     text: 'MEN',
