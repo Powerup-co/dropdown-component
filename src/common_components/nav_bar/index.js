@@ -25,7 +25,7 @@ export default function NavBar({
                 className={styles['nav-bar']}
             >
                 {
-                    linkList.map(({subLinkList = [], banner, recentlyViewed = [], ...link}) => (
+                    linkList.map(({subLinkList = [], banner, recentlyViewed = [], customRow, ...link}) => (
                         <Fragment key={link.path || link.text}>
                             <NavBarLink
                                 forceUseDefaulLinkTag={forceUseDefaulLinkTag}
@@ -104,6 +104,26 @@ export default function NavBar({
                                                     ))
                                                 }
                                             </div>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    !!customRow?.children && (
+                                        <div
+                                            className={styles['recently-viewed']}
+                                            style={{
+                                                // minWidth: navBarRef?.current?.clientWidth,
+                                                minWidth: 603,
+                                            }}
+                                        >
+                                            {
+                                                !!customRow.title && (
+                                                    <p>
+                                                        {customRow.title}
+                                                    </p>
+                                                )
+                                            }
+                                            {customRow.children}
                                         </div>
                                     )
                                 }

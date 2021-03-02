@@ -126,6 +126,37 @@ export default function DefaultPage() {
                             className: cn(styles['recently-viewed'], styles['recently-viewed-6']),
                         },
                     ],
+                    customRow: {
+                        title: 'For you',
+                        children: (
+                            <div className={styles['for-you-list']}>
+                                <div className={styles['banner']}>
+                                    <p className={styles['discount']}>
+                                        30% ALL SOCKS
+                                    </p>
+                                    <p className={styles['promo-code']}>
+                                        USE CODE 30SOCKS
+                                    </p>
+                                </div>
+                                <div className={styles['banner']}>
+                                    <p className={styles['discount']}>
+                                        30% ALL SOCKS
+                                    </p>
+                                    <p className={styles['promo-code']}>
+                                        USE CODE 30SOCKS
+                                    </p>
+                                </div>
+                                <div className={styles['banner']}>
+                                    <p className={styles['discount']}>
+                                        30% ALL SOCKS
+                                    </p>
+                                    <p className={styles['promo-code']}>
+                                        USE CODE 30SOCKS
+                                    </p>
+                                </div>
+                            </div>
+                        ),
+                    },
                 },
                 {
                     text: 'MEN',

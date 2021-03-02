@@ -30,6 +30,9 @@ $animation-name = 'fadeInUp'
     align-items: center
     // display: none
 
+    &:hover
+        display: flex
+
     .sub-nav-bar-row-wrapper
         display: flex
         justify-content: space-between
@@ -54,8 +57,8 @@ $animation-name = 'fadeInUp'
         font-size: 10px
         p&
             pointer-events: none
-    // &:hover + .sub-nav-bar
-    //     display: flex
+    &:hover + .sub-nav-bar
+        display: flex
 
 .recently-viewed
     > p
