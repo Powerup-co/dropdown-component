@@ -10,7 +10,6 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
     display: flex
     align-items: center
     justify-content: center
-    height: 80px
     position: relative
     max-width: $nav-bar-max-width
     margin-left: auto
@@ -33,13 +32,18 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
     display: flex
     align-items: center
 
-    > .nav-bar-link:first-child
-        margin-left: 0
+    > .nav-bar-link
+        margin-top: 33px
+        padding-bottom: @margin-top
+        &:first-child
+            margin-left: 0
+        &:before
+            bottom: 1px + @margin-top
+
 
 .sub-nav-bar
     position: absolute
-    // top: 100%
-    top: 110%
+    top: 100%
     left: 50%
     transform: translateX(-50%)
     width: 100vw
@@ -47,7 +51,7 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
     display: flex
     flex-direction: column
     align-items: center
-    // display: none
+    display: none
 
     &:hover
         display: flex
@@ -68,8 +72,8 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
             margin: 0
 
 .nav-bar-link
-    margin: 0 0 0 25px
-    display: block
+    margin-left: 25px
+    display: flex
     &.sub-nav-bar-link
         display: inline-block
         margin: 0 0 15px
