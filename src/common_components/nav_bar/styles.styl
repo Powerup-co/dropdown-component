@@ -1,15 +1,33 @@
 @import '~common_styles/colors.styl'
+@import '~common_styles/screen_size.styl'
 
-$animation-name = 'fadeInUp'
+$nav-bar-max-width = $screen-xxl - 2 * 165px
+
+.nav-bar-bg
+    background: $white
 
 .nav-bar-wrapper
     display: flex
     align-items: center
     justify-content: center
-    // justify-content: space-between
     height: 80px
-    background: $white
     position: relative
+    max-width: $nav-bar-max-width
+    margin-left: auto
+    margin-right: auto
+
+    @media(max-width: $nav-bar-max-width)
+        margin-left: 10px
+        margin-right: 10px
+
+    &
+    *
+        box-sizing: border-box
+        outline: none
+
+.logo
+    position: absolute
+    left: 0
 
 .nav-bar
     display: flex
@@ -22,8 +40,9 @@ $animation-name = 'fadeInUp'
     position: absolute
     // top: 100%
     top: 110%
-    left: 0
-    width: 100%
+    left: 50%
+    transform: translateX(-50%)
+    width: 100vw
     background: $white
     display: flex
     flex-direction: column

@@ -2,12 +2,14 @@ import React from 'react'
 import cn from 'classnames'
 
 import NavBar from 'common_components/nav_bar'
+import Logo from 'common_components/logo'
 
 import styles from './styles.styl'
 
 export default function DefaultPage() {
     return (
         <NavBar
+            logo={<Logo />}
             linkList={[
                 {
                     text: 'NEW',

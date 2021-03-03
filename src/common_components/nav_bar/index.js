@@ -1,4 +1,4 @@
-import React, {Fragment, useRef} from 'react'
+import React, {Fragment, useRef, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
@@ -12,125 +12,139 @@ import styles from './styles.styl'
 
 export default function NavBar({
     linkList,
+    logo,
 
     className,
     forceUseDefaulLinkTag,
 }) {
     const navBarRef = useRef(null)
 
+    const currentLogo = useMemo(
+        () => React.cloneElement(
+            logo,
+            {
+                className: cn(styles['logo'], logo.props.className),
+            }
+        ),
+        [logo]
+    )
+
     return (
-        <div className={cn(styles['nav-bar-wrapper'], className)}>
-            <div
-                ref={navBarRef}
-                className={styles['nav-bar']}
-            >
-                {
-                    linkList.map(({subLinkList = [], banner, recentlyViewed = [], customRow, ...link}) => (
-                        <Fragment key={link.path || link.text}>
-                            <NavBarLink
-                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                {...link}
-                                className={cn(styles['nav-bar-link'], link.className)}
-                            />
-                            <div className={cn(styles['sub-nav-bar'])}>
-                                {
-                                    subLinkList.map((row, rowIdx) => (
-                                        <div
-                                            key={`row-${rowIdx}`}
-                                            className={styles['sub-nav-bar-row-wrapper']}
-                                            style={{
-                                                // minWidth: navBarRef?.current?.clientWidth,
-                                                minWidth: 603,
-                                            }}
-                                        >
-                                            <div className={styles['sub-nav-bar-row']}>
-                                                {
-                                                    row.map((col, colIdx) => (
-                                                        <div key={`col-${colIdx}`} className={styles['sub-nav-bar-col']}>
-                                                            {
-                                                                col.map(subLink => (
-                                                                    <div key={`${subLink.path || subLink.text}-${rowIdx}-${colIdx}`}>
-                                                                        <NavBarLink
-                                                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                                            {...subLink}
-                                                                            className={cn(
-                                                                                styles['nav-bar-link'],
-                                                                                styles['sub-nav-bar-link'],
-                                                                                subLink.className
-                                                                            )}
-                                                                        />
-                                                                    </div>
-                                                                ))
-                                                            }
-                                                        </div>
-                                                    ))
-                                                }
-                                            </div>
-                                            <div>
-                                                {banner}
-                                            </div>
-                                        </div>
-                                    ))
-                                }
-                                {
-                                    !!recentlyViewed.length && (
-                                        <div
-                                            className={styles['recently-viewed']}
-                                            style={{
-                                                // minWidth: navBarRef?.current?.clientWidth,
-                                                minWidth: 603,
-                                            }}
-                                        >
-                                            <p>
-                                                RECENTLY VIEWED
-                                            </p>
-                                            <div className={styles['recently-viewed-link-list']}>
-                                                {
-                                                    recentlyViewed.map(({component, ...link}, idx) => (
-                                                        component
-                                                            ? React.cloneElement(
-                                                                component,
+        <div className={styles['nav-bar-bg']}>
+            <div className={cn(styles['nav-bar-wrapper'], className)}>
+                {currentLogo}
+                <div
+                    ref={navBarRef}
+                    className={styles['nav-bar']}
+                >
+                    {
+                        linkList.map(({subLinkList = [], banner, recentlyViewed = [], customRow, ...link}) => (
+                            <Fragment key={link.path || link.text}>
+                                <NavBarLink
+                                    forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                    {...link}
+                                    className={cn(styles['nav-bar-link'], link.className)}
+                                />
+                                <div className={cn(styles['sub-nav-bar'])}>
+                                    {
+                                        subLinkList.map((row, rowIdx) => (
+                                            <div
+                                                key={`row-${rowIdx}`}
+                                                className={styles['sub-nav-bar-row-wrapper']}
+                                                style={{
+                                                    // minWidth: navBarRef?.current?.clientWidth,
+                                                    minWidth: 603,
+                                                }}
+                                            >
+                                                <div className={styles['sub-nav-bar-row']}>
+                                                    {
+                                                        row.map((col, colIdx) => (
+                                                            <div key={`col-${colIdx}`} className={styles['sub-nav-bar-col']}>
                                                                 {
-                                                                    key: `component-${idx}`,
+                                                                    col.map(subLink => (
+                                                                        <div key={`${subLink.path || subLink.text}-${rowIdx}-${colIdx}`}>
+                                                                            <NavBarLink
+                                                                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                                                {...subLink}
+                                                                                className={cn(
+                                                                                    styles['nav-bar-link'],
+                                                                                    styles['sub-nav-bar-link'],
+                                                                                    subLink.className
+                                                                                )}
+                                                                            />
+                                                                        </div>
+                                                                    ))
                                                                 }
-                                                            )
-                                                            : (
-                                                                <NavBarLink
-                                                                    key={link.path || link.text}
-                                                                    forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                                    {...link}
-                                                                />
-                                                            )
-                                                    ))
-                                                }
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </div>
+                                                <div>
+                                                    {banner}
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                }
-                                {
-                                    !!customRow?.children && (
-                                        <div
-                                            className={styles['recently-viewed']}
-                                            style={{
-                                                // minWidth: navBarRef?.current?.clientWidth,
-                                                minWidth: 603,
-                                            }}
-                                        >
-                                            {
-                                                !!customRow.title && (
-                                                    <p>
-                                                        {customRow.title}
-                                                    </p>
-                                                )
-                                            }
-                                            {customRow.children}
-                                        </div>
-                                    )
-                                }
-                            </div>
-                        </Fragment>
-                    ))
-                }
+                                        ))
+                                    }
+                                    {
+                                        !!recentlyViewed.length && (
+                                            <div
+                                                className={styles['recently-viewed']}
+                                                style={{
+                                                    // minWidth: navBarRef?.current?.clientWidth,
+                                                    minWidth: 603,
+                                                }}
+                                            >
+                                                <p>
+                                                    RECENTLY VIEWED
+                                                </p>
+                                                <div className={styles['recently-viewed-link-list']}>
+                                                    {
+                                                        recentlyViewed.map(({component, ...link}, idx) => (
+                                                            component
+                                                                ? React.cloneElement(
+                                                                    component,
+                                                                    {
+                                                                        key: `component-${idx}`,
+                                                                    }
+                                                                )
+                                                                : (
+                                                                    <NavBarLink
+                                                                        key={link.path || link.text}
+                                                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                                        {...link}
+                                                                    />
+                                                                )
+                                                        ))
+                                                    }
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                    {
+                                        !!customRow?.children && (
+                                            <div
+                                                className={styles['recently-viewed']}
+                                                style={{
+                                                    // minWidth: navBarRef?.current?.clientWidth,
+                                                    minWidth: 603,
+                                                }}
+                                            >
+                                                {
+                                                    !!customRow.title && (
+                                                        <p>
+                                                            {customRow.title}
+                                                        </p>
+                                                    )
+                                                }
+                                                {customRow.children}
+                                            </div>
+                                        )
+                                    }
+                                </div>
+                            </Fragment>
+                        ))
+                    }
+                </div>
             </div>
         </div>
     )
@@ -143,6 +157,7 @@ NavBar.propTypes = {
         path: PropTypes.string,
     })).isRequired,
 
+    logo: PropTypes.node,
     className: PropTypes.string,
     forceUseDefaulLinkTag: PropTypes.bool,
 }
