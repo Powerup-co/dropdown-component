@@ -3,6 +3,7 @@ import cn from 'classnames'
 
 import NavBar from 'common_components/nav_bar'
 import Logo from 'common_components/logo'
+import Link from 'common_components/link'
 
 import styles from './styles.styl'
 
@@ -17,6 +18,31 @@ export default function DefaultPage() {
                         path: '/new',
                         isBold: true,
                         withNotificationDot: true,
+                        hoverBgClassName: styles['new-block-bg'],
+                        customRow: {
+                            children: (
+                                <div className={cn(styles['new-block'], styles['new-block-bg'])}>
+                                    <p className={styles['header']}>
+                                        SPRING
+                                        <br />
+                                        COLLECTION
+                                    </p>
+                                    <p className={styles['text']}>
+                                        Spring is in the air and with it
+                                        <br />
+                                        comes our brand new collection
+                                        <br />
+                                        of active wear for any weather.
+                                    </p>
+                                    <Link
+                                        forceUseDefaulLinkTag
+                                        path="/new-spring-collection"
+                                        text="BROWSE"
+                                        className={styles['link']}
+                                    />
+                                </div>
+                            ),
+                        },
                     },
                     {
                         text: 'WOMEN',

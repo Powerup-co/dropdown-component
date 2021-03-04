@@ -15,9 +15,11 @@ export default function NavBar({
     logo,
 
     className,
+    bgClassName,
     forceUseDefaulLinkTag,
 }) {
     const [hoverMainNavBarLink, setHoverMainNavBarLink] = useState(null)
+    const [hoverBgClassName, setHoverBgClassName] = useState(null)
 
     const navBarRef = useRef(null)
 
@@ -32,7 +34,7 @@ export default function NavBar({
     )
 
     return (
-        <div className={styles['nav-bar-bg']}>
+        <div className={cn(styles['nav-bar-bg'], bgClassName, hoverBgClassName)}>
             <div className={cn(styles['nav-bar-wrapper'], className)}>
                 {currentLogo}
                 <div
@@ -40,7 +42,14 @@ export default function NavBar({
                     className={styles['nav-bar']}
                 >
                     {
-                        linkList.map(({subLinkList = [], banner, recentlyViewed = [], customRow, ...link}) => (
+                        linkList.map(({
+                            subLinkList = [],
+                            banner,
+                            recentlyViewed = [],
+                            customRow,
+                            hoverBgClassName: linkHoverBgClassName,
+                            ...link
+                        }) => (
                             <Fragment key={link.path || link.text}>
                                 <NavBarLink
                                     forceUseDefaulLinkTag={forceUseDefaulLinkTag}
@@ -59,11 +68,17 @@ export default function NavBar({
                                         },
                                         link.className,
                                     )}
-                                    onMouseOver={() => setHoverMainNavBarLink(link.path || link.text)}
-                                    onMouseLeave={() => setHoverMainNavBarLink(null)}
+                                    onMouseOver={() => {
+                                        setHoverMainNavBarLink(link.path || link.text)
+                                        setHoverBgClassName(linkHoverBgClassName)
+                                    }}
+                                    onMouseLeave={() => {
+                                        setHoverMainNavBarLink(null)
+                                        setHoverBgClassName(null)
+                                    }}
                                 />
                                 <div
-                                    className={cn(styles['sub-nav-bar'])}
+                                    className={cn(styles['sub-nav-bar'], bgClassName, hoverBgClassName)}
                                     style={{
                                         zIndex: (
                                             hoverMainNavBarLink
@@ -71,8 +86,14 @@ export default function NavBar({
                                                 : 1
                                         )
                                     }}
-                                    onMouseOver={() => setHoverMainNavBarLink(link.path || link.text)}
-                                    onMouseLeave={() => setHoverMainNavBarLink(null)}
+                                    onMouseOver={() => {
+                                        setHoverMainNavBarLink(link.path || link.text)
+                                        setHoverBgClassName(linkHoverBgClassName)
+                                    }}
+                                    onMouseLeave={() => {
+                                        setHoverMainNavBarLink(null)
+                                        setHoverBgClassName(null)
+                                    }}
                                 >
                                     {
                                         subLinkList.map((row, rowIdx) => (
@@ -151,7 +172,7 @@ export default function NavBar({
                                     {
                                         !!customRow?.children && (
                                             <div
-                                                className={styles['recently-viewed']}
+                                                className={styles['custom-row']}
                                                 style={{
                                                     // minWidth: navBarRef?.current?.clientWidth,
                                                     minWidth: 603,
@@ -187,5 +208,6 @@ NavBar.propTypes = {
 
     logo: PropTypes.node,
     className: PropTypes.string,
+    bgClassName: PropTypes.string,
     forceUseDefaulLinkTag: PropTypes.bool,
 }
