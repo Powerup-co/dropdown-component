@@ -38,8 +38,14 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
         &:first-child
             margin-left: 0
         &:before
-            bottom: 1px + @margin-top
+            bottom: @margin-top - 1px
 
+.show-sub-nav-bar-content
+    max-height: 100vh
+    > *
+        transition: transform 0.3s 0.4s, opacity 0.7s 0.4s
+        transform: translateY(0)
+        opacity: 1
 
 .sub-nav-bar
     position: absolute
@@ -51,10 +57,16 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
     display: flex
     flex-direction: column
     align-items: center
-    display: none
+    max-height: 0
+    transition: all 0.7s
+    overflow: hidden
+
+    > *
+        transform: translateY(-100px)
+        opacity: 0
 
     &:hover
-        display: flex
+        @extend .show-sub-nav-bar-content
 
     .sub-nav-bar-row-wrapper
         display: flex
@@ -74,14 +86,19 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
 .nav-bar-link
     margin-left: 25px
     display: flex
+    transition: color 0.3s
     &.sub-nav-bar-link
         display: inline-block
         margin: 0 0 15px
         font-size: 10px
         p&
             pointer-events: none
+    &.active:before
+        opacity: 1
+    &.not-active
+        color: $dusty-gray
     &:hover + .sub-nav-bar
-        display: flex
+        @extend .show-sub-nav-bar-content
 
 .recently-viewed
     > p

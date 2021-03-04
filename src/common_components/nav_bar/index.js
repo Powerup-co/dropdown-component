@@ -1,4 +1,4 @@
-import React, {Fragment, useRef, useMemo} from 'react'
+import React, {Fragment, useRef, useMemo, useState} from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
@@ -17,6 +17,8 @@ export default function NavBar({
     className,
     forceUseDefaulLinkTag,
 }) {
+    const [hoverMainNavBarLink, setHoverMainNavBarLink] = useState(null)
+
     const navBarRef = useRef(null)
 
     const currentLogo = useMemo(
@@ -43,9 +45,35 @@ export default function NavBar({
                                 <NavBarLink
                                     forceUseDefaulLinkTag={forceUseDefaulLinkTag}
                                     {...link}
-                                    className={cn(styles['nav-bar-link'], link.className)}
+                                    className={cn(
+                                        styles['nav-bar-link'],
+                                        {
+                                            [styles['active']]: (
+                                                hoverMainNavBarLink
+                                                    && (link.path || link.text) === hoverMainNavBarLink
+                                            ),
+                                            [styles['not-active']]: (
+                                                hoverMainNavBarLink
+                                                    && (link.path || link.text) !== hoverMainNavBarLink
+                                            ),
+                                        },
+                                        link.className,
+                                    )}
+                                    onMouseOver={() => setHoverMainNavBarLink(link.path || link.text)}
+                                    onMouseLeave={() => setHoverMainNavBarLink(null)}
                                 />
-                                <div className={cn(styles['sub-nav-bar'])}>
+                                <div
+                                    className={cn(styles['sub-nav-bar'])}
+                                    style={{
+                                        zIndex: (
+                                            hoverMainNavBarLink
+                                                ? (link.path || link.text) === hoverMainNavBarLink ? 10 : 1
+                                                : 1
+                                        )
+                                    }}
+                                    onMouseOver={() => setHoverMainNavBarLink(link.path || link.text)}
+                                    onMouseLeave={() => setHoverMainNavBarLink(null)}
+                                >
                                     {
                                         subLinkList.map((row, rowIdx) => (
                                             <div
