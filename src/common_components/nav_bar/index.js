@@ -1,4 +1,4 @@
-import React, {Fragment, useRef, useMemo, useState} from 'react'
+import React, {Fragment, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
@@ -6,37 +6,37 @@ import Link from 'common_components/link'
 
 import NavBarLink from './components/nav_bar_link'
 
-import 'animate.css'
+import SearchIcon from './svg/search.svg?jsx'
+import ShoppingBagIcon from './svg/shopping_bag.svg?jsx'
 
 import styles from './styles.styl'
 
 export default function NavBar({
     linkList,
-    logo,
 
+    logo,
     className,
+    leftAdditionalElements,
+    rightAdditionalElements,
     bgClassName,
     forceUseDefaulLinkTag,
+    showSearchIcon,
+    useSimpleSearch,
+    showShoppingBagIcon,
+    hasSomethingInShoppingBag,
 }) {
     const [hoverMainNavBarLink, setHoverMainNavBarLink] = useState(null)
     const [hoverBgClassName, setHoverBgClassName] = useState(null)
 
     const navBarRef = useRef(null)
 
-    const currentLogo = useMemo(
-        () => React.cloneElement(
-            logo,
-            {
-                className: cn(styles['logo'], logo.props.className),
-            }
-        ),
-        [logo]
-    )
-
     return (
         <div className={cn(styles['nav-bar-bg'], bgClassName, hoverBgClassName)}>
             <div className={cn(styles['nav-bar-wrapper'], className)}>
-                {currentLogo}
+                <div className={styles['nav-bar-left-block']}>
+                    {logo}
+                    {leftAdditionalElements}
+                </div>
                 <div
                     ref={navBarRef}
                     className={styles['nav-bar']}
@@ -194,6 +194,29 @@ export default function NavBar({
                         ))
                     }
                 </div>
+                <div className={styles['nav-bar-right-block']}>
+                    {rightAdditionalElements}
+                    {
+                        showSearchIcon && (
+                            <SearchIcon />
+                        )
+                    }
+                    {
+                        showShoppingBagIcon && (
+                            <Link
+                                className={cn(
+                                    styles['shopping-bag-icon'],
+                                    {
+                                        [styles['with-notification-dot']]: hasSomethingInShoppingBag,
+                                    }
+                                )}
+                                text={<ShoppingBagIcon />}
+                                path="/shopping-bag"
+                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                            />
+                        )
+                    }
+                </div>
             </div>
         </div>
     )
@@ -207,7 +230,13 @@ NavBar.propTypes = {
     })).isRequired,
 
     logo: PropTypes.node,
+    leftAdditionalElements: PropTypes.node,
+    rightAdditionalElements: PropTypes.node,
     className: PropTypes.string,
     bgClassName: PropTypes.string,
     forceUseDefaulLinkTag: PropTypes.bool,
+    showSearchIcon: PropTypes.bool,
+    useSimpleSearch: PropTypes.bool,
+    showShoppingBagIcon: PropTypes.bool,
+    hasSomethingInShoppingBag: PropTypes.bool,
 }

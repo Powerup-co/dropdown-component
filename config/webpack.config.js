@@ -556,6 +556,82 @@ module.exports = function (webpackEnv) {
               // See https://github.com/webpack/webpack/issues/6571
               sideEffects: true,
             },
+            {
+              test: /\.svg$/,
+              oneOf: [
+                {
+                  resourceQuery: /url/,
+                  use: {
+                    loader: require.resolve('file-loader'),
+                    options: {
+                      name: 'static/media/[name].[hash:8].[ext]',
+                    },
+                  },
+                },
+                {
+                  resourceQuery: /jsx/,
+                  use: [
+                    {
+                      loader: require.resolve('babel-loader'),
+                      options: {
+                        customize: require.resolve(
+                          'babel-preset-react-app/webpack-overrides'
+                        ),
+                        presets: [
+                          [
+                            require.resolve('babel-preset-react-app'),
+                            {
+                              runtime: hasJsxRuntime ? 'automatic' : 'classic',
+                            },
+                          ],
+                        ],
+
+                        plugins: [
+                          [
+                            require.resolve('babel-plugin-named-asset-import'),
+                            {
+                              loaderMap: {
+                                svg: {
+                                  ReactComponent:
+                                    '@svgr/webpack?-svgo,+titleProp,+ref![path]',
+                                },
+                              },
+                            },
+                          ],
+                          isEnvDevelopment &&
+                            shouldUseReactRefresh &&
+                            require.resolve('react-refresh/babel'),
+                        ].filter(Boolean),
+                        // This is a feature of `babel-loader` for webpack (not Babel itself).
+                        // It enables caching results in ./node_modules/.cache/babel-loader/
+                        // directory for faster rebuilds.
+                        cacheDirectory: true,
+                        // See #6846 for context on why cacheCompression is disabled
+                        cacheCompression: false,
+                        compact: isEnvProduction,
+                      },
+                    },
+                    {
+                      loader: 'react-svg-loader',
+                      options: {
+                        jsx: true,
+                        svgo: {
+                          plugins: [
+                            {
+                              removeTitle: false,
+                            },
+                            {
+                              removeViewBox: false,
+                            },
+                          ],
+                          floatPrecision: 2,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
 
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.

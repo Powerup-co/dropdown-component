@@ -25,9 +25,17 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
         box-sizing: border-box
         outline: none
 
-.logo
+.nav-bar-left-block
+.nav-bar-right-block
     position: absolute
+    display: flex
+    align-items: center
+
+.nav-bar-left-block
     left: 0
+
+.nav-bar-right-block
+    right: 0
 
 .nav-bar
     display: flex
@@ -113,3 +121,16 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
 
     .recently-viewed-link-list
         display: flex
+
+.shopping-bag-icon
+    margin-left: 15px
+    position: relative
+    &.with-notification-dot:after
+        content: ''
+        position: absolute
+        background: $carmine-pink
+        width: 3px
+        height: @width
+        border-radius: 100%
+        left: calc(100% + 1px)
+        top: 1px

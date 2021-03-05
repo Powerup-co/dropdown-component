@@ -12,6 +12,10 @@ export default function DefaultPage() {
         <Fragment>
             <NavBar
                 logo={<Logo />}
+                showSearchIcon
+                useSimpleSearch
+                showShoppingBagIcon
+                hasSomethingInShoppingBag
                 linkList={[
                     {
                         text: 'NEW',
