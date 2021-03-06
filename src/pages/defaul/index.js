@@ -1,4 +1,5 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useState} from 'react'
+import axios from 'axios'
 import cn from 'classnames'
 
 import NavBar from 'common_components/nav_bar'
@@ -8,12 +9,34 @@ import Link from 'common_components/link'
 import styles from './styles.styl'
 
 export default function DefaultPage() {
+    const [searchResult, setSearchResult] = useState([])
+
     return (
         <Fragment>
             <NavBar
                 logo={<Logo />}
                 showSearchIcon
                 useSimpleSearch
+                onSearch={search}
+                searchResult={searchResult}
+                searchPrediction={[
+                    {
+                        text: 'Capri Leggings',
+                        path: '/capri-leggings',
+                    },
+                    {
+                        text: 'Purple Legging',
+                        path: '/purple-legging',
+                    },
+                    {
+                        text: 'Printed Legging',
+                        path: '/printed-legging',
+                    },
+                    {
+                        text: 'Space Dye Legging',
+                        path: '/space-dye-legging',
+                    },
+                ]}
                 showShoppingBagIcon
                 hasSomethingInShoppingBag
                 linkList={[
@@ -676,4 +699,28 @@ export default function DefaultPage() {
             />
         </Fragment>
     )
+
+    async function search(searchText) {
+        setSearchResult(
+            (await searchWords(searchText))
+                .map(word => ({
+                    text: word,
+                    path: `/${word}`,
+                }))
+                .slice(0, 5)
+        )
+    }
+}
+
+async function searchWords(searchText) {
+    return searchText
+        ? (await axios.get('https://api.datamuse.com/sug', {
+            params: {
+                s: searchText,
+            }
+        })).data
+            .sort(({score: a}, {score: b}) => b - a)
+            .map(({word}) => word)
+            .filter(word => word.indexOf(searchText) !== -1)
+        : Promise.resolve([])
 }

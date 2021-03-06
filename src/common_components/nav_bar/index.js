@@ -7,6 +7,7 @@ import Link from 'common_components/link'
 import NavBarLink from './components/nav_bar_link'
 
 import SearchIcon from './svg/search.svg?jsx'
+import SpinnerIcon from './svg/spinner.svg?jsx'
 import ShoppingBagIcon from './svg/shopping_bag.svg?jsx'
 
 import styles from './styles.styl'
@@ -22,11 +23,16 @@ export default function NavBar({
     forceUseDefaulLinkTag,
     showSearchIcon,
     useSimpleSearch,
+    onSearch,
+    searchResult,
+    searchEmptyText,
     showShoppingBagIcon,
     hasSomethingInShoppingBag,
 }) {
     const [hoverMainNavBarLink, setHoverMainNavBarLink] = useState(null)
     const [hoverBgClassName, setHoverBgClassName] = useState(null)
+    const [searchText, setSearchText] = useState('')
+    const [searchInProgress, setSearchInProgress] = useState(false)
 
     const navBarRef = useRef(null)
 
@@ -197,8 +203,66 @@ export default function NavBar({
                 <div className={styles['nav-bar-right-block']}>
                     {rightAdditionalElements}
                     {
-                        showSearchIcon && (
-                            <SearchIcon />
+                        showSearchIcon && useSimpleSearch && (
+                            <div
+                                className={cn(
+                                    styles['search-simple-block'],
+                                    {
+                                        [styles['search-in-progress']]: searchInProgress,
+                                        [styles['search-with-results']]: !!searchResult.length && !searchInProgress,
+                                    }
+                                )}
+                            >
+                                <input
+                                    id="nav-bar-simple-search-field"
+                                    value={searchText}
+                                    onChange={({target: {value}}) => {
+                                        setSearchText(value)
+
+                                        search(value)
+                                    }}
+                                    className={styles['search-field']}
+                                    autoComplete="off"
+                                />
+                                <label className={styles['search-icon']} htmlFor="nav-bar-simple-search-field">
+                                    <SearchIcon className={styles['icon']} />
+                                    <SpinnerIcon
+                                        className={styles['spinner']}
+                                        width="16px"
+                                        height="16px"
+                                    />
+                                </label>
+                                {
+                                    !!searchText && !searchInProgress && !!searchResult.length && (
+                                        <div className={styles['search-result']}>
+                                            {
+                                                searchResult.map(link => (
+                                                    <div
+                                                        key={link.path || link.text}
+                                                        className={styles['search-link-wrapper']}
+                                                    >
+                                                        <SearchIcon className={styles['icon']} />
+                                                        <NavBarLink
+                                                            {...link}
+                                                            className={cn(styles['search-link'], link.className)}
+                                                            text={
+                                                                <Fragment>
+                                                                    {link.text.replace(new RegExp(`(${searchText}.*)`, 'g'), '')}
+                                                                    <b>
+                                                                        {searchText}
+                                                                    </b>
+                                                                    {link.text.replace(new RegExp(`(.*${searchText})`, 'g'), '')}
+                                                                </Fragment>
+                                                            }
+                                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                        />
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                    )
+                                }
+                            </div>
                         )
                     }
                     {
@@ -220,6 +284,19 @@ export default function NavBar({
             </div>
         </div>
     )
+
+    async function search(value) {
+        try {
+            setSearchInProgress(true)
+
+            if (onSearch) {
+                await onSearch(value)
+            }
+        }
+        finally {
+            setSearchInProgress(false)
+        }
+    }
 }
 
 NavBar.propTypes = {
@@ -237,6 +314,12 @@ NavBar.propTypes = {
     forceUseDefaulLinkTag: PropTypes.bool,
     showSearchIcon: PropTypes.bool,
     useSimpleSearch: PropTypes.bool,
+    onSearch: PropTypes.func,
+    searchResult: PropTypes.arrayOf(PropTypes.shape({
+        ...Link.propTypes,
+        ...NavBarLink.propTypes,
+    })),
+    searchEmptyText: PropTypes.string,
     showShoppingBagIcon: PropTypes.bool,
     hasSomethingInShoppingBag: PropTypes.bool,
 }

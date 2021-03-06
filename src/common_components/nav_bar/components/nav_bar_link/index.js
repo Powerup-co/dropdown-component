@@ -50,7 +50,7 @@ export default function NavBarLink({
 
 NavBarLink.propTypes = {
     path: PropTypes.string,
-    text: PropTypes.string,
+    text: PropTypes.node,
     className: PropTypes.string,
     isBold: PropTypes.bool,
     withNotificationDot: PropTypes.bool,

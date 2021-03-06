@@ -134,3 +134,101 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
         border-radius: 100%
         left: calc(100% + 1px)
         top: 1px
+
+.search-simple-block
+    display: flex
+    align-items: center
+    position: relative
+
+    .search-icon
+        .spinner
+            display: none
+
+    .search-icon
+    .search-field
+    .search-result
+        position: absolute
+        right: 0
+        transition-property: width, right
+        transition-duration: 0.3s
+
+    .search-result
+        background: $white
+        border-radius: 0 0 20px 20px
+        width: 0
+        padding: 0
+        color: $white
+        height: max-content
+        flex-direction: column
+        top: 27px
+        width: 0
+        padding: 12px 20px
+        border: 1px solid $alto
+        visibility: hidden
+        pointer-events: none
+        overflow: hidden
+
+        .search-link-wrapper
+            display: flex
+            align-items: center
+            &:not(&:last-child)
+                margin-bottom: 18px
+
+            .search-link
+                text-overflow: ellipsis
+                overflow: hidden
+                white-space: nowrap
+
+            .icon
+                margin-right: 6px
+                margin-top: -1px
+                min-width: 16px
+                min-height: @min-width
+                *
+                    stroke: $black
+                    stroke-width: 2px
+
+    .search-field
+        background: $white
+        border: none
+        border-radius: 20px
+        width: 0
+        padding: 0
+        color: $white
+
+        &:focus
+            padding: 19px 35px 17px 18px
+            width: 200px
+            border: 1px solid $alto
+            position: absolute
+            right: -36px
+            z-index: 1
+            color: $black
+
+            & ~ .search-icon
+                position: absolute
+                pointer-events: none
+                right: @right + 15px
+                z-index: 1
+                *
+                    stroke: $black
+
+            & ~ .search-result
+                right: @right
+                z-index: 1
+                bottom: 0
+                display: flex
+                width: 200px
+                visibility: visible
+                pointer-events: all
+
+    &.search-in-progress
+        .search-icon
+            .icon
+                display: none
+            .spinner
+                display: block
+
+    &.search-with-results
+        .search-field
+            border-radius: 20px 20px 0 0
