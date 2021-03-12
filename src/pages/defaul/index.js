@@ -1,5 +1,6 @@
 import React, {Fragment, useState} from 'react'
 import axios from 'axios'
+import qs from 'qs'
 import cn from 'classnames'
 
 import NavBar from 'common_components/nav_bar'
@@ -13,13 +14,28 @@ import styles from './styles.styl'
 export default function DefaultPage() {
     const [searchResult, setSearchResult] = useState([])
     const [searchResultWithDetails, setSearchResultWithDetails] = useState({})
+    const [quesrySearch] = useState(qs.parse(window.location.search, {
+        ignoreQueryPrefix: true,
+        decoder: (value, decode) => {
+            const decodeValue = decode(value)
+
+            try {
+                return JSON.parse(decodeValue)
+            }
+            catch {}
+
+            return decode(decodeValue)
+        },
+    }))
+
+    console.log(quesrySearch)
 
     return (
         <Fragment>
             <NavBar
                 logo={<Logo />}
-                useSimpleSearch
-                useFullSearch
+                useSimpleSearch={quesrySearch.useSimpleSearch || (quesrySearch.useFullSearch ? false : true)}
+                useFullSearch={quesrySearch.useFullSearch}
                 onSearch={search}
                 searchResult={searchResult}
                 searchResultWithDetails={searchResultWithDetails}
@@ -701,6 +717,16 @@ export default function DefaultPage() {
                 ]}
                 forceUseDefaulLinkTag
             />
+            <p>
+                <a href="/?useSimpleSearch=true">
+                    use simple search
+                </a>
+            </p>
+            <p>
+                <a href="/?useFullSearch=true">
+                    use complex search
+                </a>
+            </p>
         </Fragment>
     )
 
