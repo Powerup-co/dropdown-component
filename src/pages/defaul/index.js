@@ -15,8 +15,8 @@ export default function DefaultPage() {
         <Fragment>
             <NavBar
                 logo={<Logo />}
-                showSearchIcon
                 useSimpleSearch
+                useFullSearch
                 onSearch={search}
                 searchResult={searchResult}
                 searchPrediction={[
@@ -704,7 +704,18 @@ export default function DefaultPage() {
         setSearchResult(
             (await searchWords(searchText))
                 .map(word => ({
-                    text: word,
+                    // text: word.replace(searchText, `**${searchText}**`),
+                    text: word
+                        .replace(searchText, `**${searchText}**`)
+                        .split('**')
+                        .map((subString, idx) => idx % 2 === 0
+                            ? {
+                                normalText: subString,
+                            }
+                            : {
+                                boldText: subString,
+                            }
+                        ),
                     path: `/${word}`,
                 }))
                 .slice(0, 5)

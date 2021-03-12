@@ -5,10 +5,13 @@ import cn from 'classnames'
 import Link from 'common_components/link'
 
 import NavBarLink from './components/nav_bar_link'
+import SearchResult from './components/search_result'
 
 import SearchIcon from './svg/search.svg?jsx'
 import SpinnerIcon from './svg/spinner.svg?jsx'
 import ShoppingBagIcon from './svg/shopping_bag.svg?jsx'
+import CloseIcon from './svg/close.svg?jsx'
+import EnterIcon from './svg/enter.svg?jsx'
 
 import styles from './styles.styl'
 
@@ -21,11 +24,10 @@ export default function NavBar({
     rightAdditionalElements,
     bgClassName,
     forceUseDefaulLinkTag,
-    showSearchIcon,
     useSimpleSearch,
+    useFullSearch,
     onSearch,
     searchResult,
-    searchEmptyText,
     showShoppingBagIcon,
     hasSomethingInShoppingBag,
 }) {
@@ -33,6 +35,7 @@ export default function NavBar({
     const [hoverBgClassName, setHoverBgClassName] = useState(null)
     const [searchText, setSearchText] = useState('')
     const [searchInProgress, setSearchInProgress] = useState(false)
+    const [showFullSearch, setShowFullSearch] = useState(false)
 
     const navBarRef = useRef(null)
 
@@ -68,8 +71,11 @@ export default function NavBar({
                                                     && (link.path || link.text) === hoverMainNavBarLink
                                             ),
                                             [styles['not-active']]: (
-                                                hoverMainNavBarLink
-                                                    && (link.path || link.text) !== hoverMainNavBarLink
+                                                (
+                                                    hoverMainNavBarLink
+                                                        && (link.path || link.text) !== hoverMainNavBarLink
+                                                )
+                                                    || showFullSearch
                                             ),
                                         },
                                         link.className,
@@ -81,6 +87,7 @@ export default function NavBar({
                                     onMouseLeave={() => {
                                         setHoverMainNavBarLink(null)
                                         setHoverBgClassName(null)
+                                        setShowFullSearch(false)
                                     }}
                                 />
                                 <div
@@ -99,6 +106,7 @@ export default function NavBar({
                                     onMouseLeave={() => {
                                         setHoverMainNavBarLink(null)
                                         setHoverBgClassName(null)
+                                        setShowFullSearch(false)
                                     }}
                                 >
                                     {
@@ -199,11 +207,83 @@ export default function NavBar({
                             </Fragment>
                         ))
                     }
+                    <div
+                        className={cn(
+                            styles['sub-nav-bar'],
+                            styles['full-search-block'],
+                            {
+                                [styles['show-full-search-block']]: showFullSearch,
+                            },
+                            bgClassName
+                        )}
+                    >
+                        <div
+                            className={styles['search-field-block']}
+                            style={{
+                                // minWidth: navBarRef?.current?.clientWidth,
+                                minWidth: 603,
+                            }}
+                        >
+                            <div className={styles['search-field-wrapper']}>
+                                <input
+                                    id="nav-bar-full-search-field"
+                                    value={searchText}
+                                    onChange={({target: {value}}) => {
+                                        setSearchText(value)
+                                    }}
+                                    className={styles['search-field']}
+                                    autoComplete="off"
+                                    onKeyPress={({charCode}) => {
+                                        if (charCode === 13) { // press enter
+                                            search(searchText)
+                                        }
+                                    }}
+                                />
+                                {
+                                    searchInProgress
+                                        ? (
+                                            <SpinnerIcon
+                                                className={styles['icon']}
+                                                width="16px"
+                                                height="16px"
+                                            />
+                                        )
+                                        : (
+                                            <EnterIcon
+                                                className={cn(
+                                                    styles['icon'],
+                                                    {
+                                                        [styles['not-active']]: !searchText,
+                                                    }
+                                                )}
+                                            />
+                                        )
+                                }
+                            </div>
+                            <CloseIcon
+                                className={styles['close-icon']}
+                                onClick={() => setShowFullSearch(false)}
+                            />
+                        </div>
+                        {
+                            !searchInProgress && !!searchResult.length && (
+                                <SearchResult
+                                    className={styles['search-result']}
+                                    style={{
+                                        // minWidth: navBarRef?.current?.clientWidth,
+                                        minWidth: 603,
+                                    }}
+                                    searchResult={searchResult}
+                                    forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                />
+                            )
+                        }
+                    </div>
                 </div>
                 <div className={styles['nav-bar-right-block']}>
                     {rightAdditionalElements}
                     {
-                        showSearchIcon && useSimpleSearch && (
+                        useSimpleSearch && (
                             <div
                                 className={cn(
                                     styles['search-simple-block'],
@@ -234,35 +314,30 @@ export default function NavBar({
                                 </label>
                                 {
                                     !!searchText && !searchInProgress && !!searchResult.length && (
-                                        <div className={styles['search-result']}>
-                                            {
-                                                searchResult.map(link => (
-                                                    <div
-                                                        key={link.path || link.text}
-                                                        className={styles['search-link-wrapper']}
-                                                    >
-                                                        <SearchIcon className={styles['icon']} />
-                                                        <NavBarLink
-                                                            {...link}
-                                                            className={cn(styles['search-link'], link.className)}
-                                                            text={
-                                                                <Fragment>
-                                                                    {link.text.replace(new RegExp(`(${searchText}.*)`, 'g'), '')}
-                                                                    <b>
-                                                                        {searchText}
-                                                                    </b>
-                                                                    {link.text.replace(new RegExp(`(.*${searchText})`, 'g'), '')}
-                                                                </Fragment>
-                                                            }
-                                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                        />
-                                                    </div>
-                                                ))
-                                            }
-                                        </div>
+                                        <SearchResult
+                                            className={styles['search-result']}
+                                            searchResult={searchResult}
+                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                        />
                                     )
                                 }
                             </div>
+                        )
+                    }
+                    {
+                        useFullSearch && (
+                            <label
+                                className={cn(
+                                    styles['full-search-icon'],
+                                    {
+                                        [styles['show-full-search-block']]: showFullSearch,
+                                    },
+                                )}
+                                htmlFor="nav-bar-full-search-field"
+                                onClick={() => setShowFullSearch(!showFullSearch)}
+                            >
+                                <SearchIcon className={styles['icon']} />
+                            </label>
                         )
                     }
                     {
@@ -312,14 +387,13 @@ NavBar.propTypes = {
     className: PropTypes.string,
     bgClassName: PropTypes.string,
     forceUseDefaulLinkTag: PropTypes.bool,
-    showSearchIcon: PropTypes.bool,
     useSimpleSearch: PropTypes.bool,
+    useFullSearch: PropTypes.bool,
     onSearch: PropTypes.func,
     searchResult: PropTypes.arrayOf(PropTypes.shape({
         ...Link.propTypes,
         ...NavBarLink.propTypes,
     })),
-    searchEmptyText: PropTypes.string,
     showShoppingBagIcon: PropTypes.bool,
     hasSomethingInShoppingBag: PropTypes.bool,
 }

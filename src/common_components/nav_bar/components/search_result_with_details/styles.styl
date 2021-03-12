@@ -1,0 +1,22 @@
+@import '~common_styles/colors.styl'
+@import '~common_styles/screen_size.styl'
+
+.search-link-wrapper
+    display: flex
+    align-items: center
+    &:not(&:last-child)
+        margin-bottom: 18px
+
+    .search-link
+        text-overflow: ellipsis
+        overflow: hidden
+        white-space: nowrap
+
+    .icon
+        margin-right: 6px
+        margin-top: -1px
+        min-width: 16px
+        min-height: @min-width
+        *
+            stroke: $black
+            stroke-width: 2px

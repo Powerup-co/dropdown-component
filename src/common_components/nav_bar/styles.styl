@@ -141,6 +141,7 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
     position: relative
 
     .search-icon
+        cursor: pointer
         .spinner
             display: none
 
@@ -153,13 +154,10 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
         transition-duration: 0.3s
 
     .search-result
-        background: $white
         border-radius: 0 0 20px 20px
         width: 0
         padding: 0
         color: $white
-        height: max-content
-        flex-direction: column
         top: 26px
         width: 0
         padding: 12px 20px
@@ -167,26 +165,6 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
         visibility: hidden
         pointer-events: none
         overflow: hidden
-
-        .search-link-wrapper
-            display: flex
-            align-items: center
-            &:not(&:last-child)
-                margin-bottom: 18px
-
-            .search-link
-                text-overflow: ellipsis
-                overflow: hidden
-                white-space: nowrap
-
-            .icon
-                margin-right: 6px
-                margin-top: -1px
-                min-width: 16px
-                min-height: @min-width
-                *
-                    stroke: $black
-                    stroke-width: 2px
 
     .search-field
         background: $white
@@ -235,3 +213,95 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
     &.search-with-results
         .search-field
             border-radius: 20px 20px 0 0
+
+.search-result
+    background: $white
+    height: max-content
+    flex-direction: column
+
+    .search-link-wrapper
+        display: flex
+        align-items: center
+        &:not(&:last-child)
+            margin-bottom: 18px
+
+        .search-link
+            text-overflow: ellipsis
+            overflow: hidden
+            white-space: nowrap
+
+        .icon
+            margin-right: 6px
+            margin-top: -1px
+            min-width: 16px
+            min-height: @min-width
+            *
+                stroke: $black
+                stroke-width: 2px
+
+.full-search-icon
+    cursor: pointer
+    position: relative
+    &:before
+        content: ''
+        width: 100%
+        height: 2px
+        position: absolute
+        bottom: -@height - 1px
+        left: 0
+        background: $black
+        transition: opacity 0.3s
+        opacity: 0
+    &.show-full-search-block
+        &:before
+            opacity: 1
+
+        .icon *
+            stroke: $black
+
+.full-search-block
+    padding: 0
+    &.show-full-search-block
+        padding: 35px 0 40px
+        @extend .show-sub-nav-bar-content
+    &:not(.show-full-search-block):hover
+        max-height: 0
+        // > *
+        //     transition: transform 0.3s 0.4s, opacity 0.7s 0.4s
+        //     transform: translateY(0)
+        //     opacity: 1
+
+    .search-field-block
+        display: flex
+        align-items: center
+        justify-content: space-between
+
+        .search-field-wrapper
+            flex-grow: 1
+            margin-right: 13px
+            position: relative
+
+            .search-field
+                border-radius: 20px
+                font-family: 'Univers LT Pro', sans-serif
+                font-weight: 400
+                font-size: 14px
+                border: 2px solid $alto
+                border-radius: 20px
+                padding: 8px 53px 8px 18px
+                width: 100%
+
+            .icon
+                position: absolute
+                top: 50%
+                right: 25px
+                transform: translateY(-50%)
+                &.not-active *
+                    stroke: $alto
+
+        .close-icon
+            cursor: pointer
+
+    .search-result
+        margin-top: 30px
+        padding: 0 20px
