@@ -6,10 +6,13 @@ import NavBar from 'common_components/nav_bar'
 import Logo from 'common_components/logo'
 import Link from 'common_components/link'
 
+import searchResultWithDetailsImg1 from './images/search_result_with_details_img_1.png'
+
 import styles from './styles.styl'
 
 export default function DefaultPage() {
     const [searchResult, setSearchResult] = useState([])
+    const [searchResultWithDetails, setSearchResultWithDetails] = useState({})
 
     return (
         <Fragment>
@@ -19,6 +22,7 @@ export default function DefaultPage() {
                 useFullSearch
                 onSearch={search}
                 searchResult={searchResult}
+                searchResultWithDetails={searchResultWithDetails}
                 searchPrediction={[
                     {
                         text: 'Capri Leggings',
@@ -701,25 +705,39 @@ export default function DefaultPage() {
     )
 
     async function search(searchText) {
-        setSearchResult(
-            (await searchWords(searchText))
+        const result = await searchWords(searchText)
+
+        setSearchResult(result
+            .map(word => ({
+                // text: word.replace(searchText, `**${searchText}**`),
+                text: word
+                    .replace(searchText, `**${searchText}**`)
+                    .split('**')
+                    .map((subString, idx) => idx % 2 === 0
+                        ? {
+                            normalText: subString,
+                        }
+                        : {
+                            boldText: subString,
+                        }
+                    ),
+                path: `/${word}`,
+            }))
+            .slice(0, 5)
+        )
+        setSearchResultWithDetails({
+            searchResultList: result
                 .map(word => ({
-                    // text: word.replace(searchText, `**${searchText}**`),
-                    text: word
-                        .replace(searchText, `**${searchText}**`)
-                        .split('**')
-                        .map((subString, idx) => idx % 2 === 0
-                            ? {
-                                normalText: subString,
-                            }
-                            : {
-                                boldText: subString,
-                            }
-                        ),
+                    text: word,
+                    image: searchResultWithDetailsImg1,
+                    price: Math.trunc(Math.random() * 1000000)/100,
+                    rating: Math.trunc(Math.random() * 5),
                     path: `/${word}`,
                 }))
-                .slice(0, 5)
-        )
+                .slice(0, 3),
+            count: result.length,
+            linkToAllResults: '/all-results',
+        })
     }
 }
 

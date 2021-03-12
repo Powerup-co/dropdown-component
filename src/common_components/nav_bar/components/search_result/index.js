@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
@@ -70,6 +70,10 @@ SearchResult.propTypes = {
     searchResult: PropTypes.arrayOf(PropTypes.shape({
         ...Link.propTypes,
         ...NavBarLink.propTypes,
+        text: PropTypes.oneOfType([
+            PropTypes.node,
+            PropTypes.array,
+        ]),
     })),
 
     className: PropTypes.string,

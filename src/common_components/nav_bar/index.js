@@ -6,6 +6,7 @@ import Link from 'common_components/link'
 
 import NavBarLink from './components/nav_bar_link'
 import SearchResult from './components/search_result'
+import SearchResultWithDetails from './components/search_result_with_details'
 
 import SearchIcon from './svg/search.svg?jsx'
 import SpinnerIcon from './svg/spinner.svg?jsx'
@@ -28,6 +29,7 @@ export default function NavBar({
     useFullSearch,
     onSearch,
     searchResult,
+    searchResultWithDetails,
     showShoppingBagIcon,
     hasSomethingInShoppingBag,
 }) {
@@ -278,6 +280,19 @@ export default function NavBar({
                                 />
                             )
                         }
+                        {
+                            !searchInProgress && !!searchResultWithDetails.count && (
+                                <SearchResultWithDetails
+                                    className={styles['search-result-with-detail']}
+                                    style={{
+                                        // minWidth: navBarRef?.current?.clientWidth,
+                                        minWidth: 603,
+                                    }}
+                                    searchResult={searchResultWithDetails}
+                                    forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                />
+                            )
+                        }
                     </div>
                 </div>
                 <div className={styles['nav-bar-right-block']}>
@@ -390,10 +405,8 @@ NavBar.propTypes = {
     useSimpleSearch: PropTypes.bool,
     useFullSearch: PropTypes.bool,
     onSearch: PropTypes.func,
-    searchResult: PropTypes.arrayOf(PropTypes.shape({
-        ...Link.propTypes,
-        ...NavBarLink.propTypes,
-    })),
+    searchResult: SearchResult.propTypes.searchResult,
+    searchResultWithDetails: SearchResultWithDetails.propTypes.searchResult,
     showShoppingBagIcon: PropTypes.bool,
     hasSomethingInShoppingBag: PropTypes.bool,
 }
