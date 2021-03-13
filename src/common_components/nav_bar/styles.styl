@@ -42,12 +42,24 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
     align-items: center
 
     > .nav-bar-link
+        $padding-left = 12px
         margin-top: 33px
+        padding-left: $padding-left
+        padding-right: $padding-left
         padding-bottom: @margin-top
         &:first-child
-            margin-left: 0
+            padding-left: 0
+            &:before
+                width: 'calc(100% - %s)' % ($padding-left)
+                left: 0
+        &:last-child
+            padding-right: 0
+            &:before
+                width: 'calc(100% - %s)' % ($padding-left)
         &:before
             bottom: @margin-top - 1px
+            width: 'calc(100% - 2*%s)' % ($padding-left)
+            left: $padding-left
 
 .show-sub-nav-bar-content
     max-height: 100vh
@@ -93,7 +105,6 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
             margin: 0
 
 .nav-bar-link
-    margin-left: 25px
     display: flex
     transition: color 0.3s
     &.sub-nav-bar-link
