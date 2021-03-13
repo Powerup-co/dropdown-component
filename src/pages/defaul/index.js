@@ -39,24 +39,6 @@ export default function DefaultPage() {
                 onSearch={search}
                 searchResult={searchResult}
                 searchResultWithDetails={searchResultWithDetails}
-                searchPrediction={[
-                    {
-                        text: 'Capri Leggings',
-                        path: '/capri-leggings',
-                    },
-                    {
-                        text: 'Purple Legging',
-                        path: '/purple-legging',
-                    },
-                    {
-                        text: 'Printed Legging',
-                        path: '/printed-legging',
-                    },
-                    {
-                        text: 'Space Dye Legging',
-                        path: '/space-dye-legging',
-                    },
-                ]}
                 showShoppingBagIcon
                 hasSomethingInShoppingBag
                 linkList={[

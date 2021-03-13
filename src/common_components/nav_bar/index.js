@@ -85,6 +85,7 @@ export default function NavBar({
                                     onMouseOver={() => {
                                         setHoverMainNavBarLink(link.path || link.text)
                                         setHoverBgClassName(linkHoverBgClassName)
+                                        setShowFullSearch(false)
                                     }}
                                     onMouseLeave={() => {
                                         setHoverMainNavBarLink(null)
@@ -104,6 +105,7 @@ export default function NavBar({
                                     onMouseOver={() => {
                                         setHoverMainNavBarLink(link.path || link.text)
                                         setHoverBgClassName(linkHoverBgClassName)
+                                        setShowFullSearch(false)
                                     }}
                                     onMouseLeave={() => {
                                         setHoverMainNavBarLink(null)
