@@ -1,6 +1,7 @@
 @import '~common_styles/colors.styl'
 @import '~common_styles/screen_size.styl'
 
+$nav-bar-height = 80px
 $nav-bar-max-width = $screen-xxl - 2 * 165px
 
 .nav-bar-bg
@@ -124,8 +125,6 @@ show-sub-nav-bar-content($initial-transform = null)
         color: $dusty-gray
     &:hover + .sub-nav-bar
         show-sub-nav-bar-content(translateX(-50%))
-    &:hover
-        background: red
 
 .recently-viewed
 .custom-row
@@ -279,6 +278,7 @@ show-sub-nav-bar-content($initial-transform = null)
 
 .full-search-block
     padding: 0
+    height: 'calc(100vh - %s)' % ($nav-bar-height)
     &.show-full-search-block
         padding: 35px 0 40px
         show-sub-nav-bar-content(translateX(-50%))
