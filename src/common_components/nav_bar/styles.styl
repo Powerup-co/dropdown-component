@@ -72,6 +72,7 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
 hide-sub-nav-bar-content($initial-transform)
     transform: $initial-transform rotateX(90deg)
     transform-origin: 0 0 0
+    pointer-events: none
     > *
         transform: translateY(-10px)
         opacity: 0
@@ -79,6 +80,7 @@ hide-sub-nav-bar-content($initial-transform)
 show-sub-nav-bar-content($initial-transform = null)
     transform: $initial-transform rotateX(0)
     transform-origin: 0 0 0
+    pointer-events: all
     > *
         $transition-duration = 0.3s
         $transition-delay = 0.1s
