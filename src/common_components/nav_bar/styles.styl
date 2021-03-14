@@ -62,6 +62,8 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
             bottom: @margin-top - 1px
             width: 'calc(100% - 2*%s)' % ($padding-left)
             left: $padding-left
+        &:after
+            right: 'calc(%s - 5px)' % ($padding-left)
     :nth-last-child(3)
         padding-right: 0
         &:before
