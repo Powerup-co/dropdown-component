@@ -7,12 +7,13 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
 .nav-bar-bg
     background: $white
     box-shadow: 0px 4px 25px rgba($black, 0.15)
+    position: relative
 
 .nav-bar-wrapper
+    height: $nav-bar-height
     display: flex
     align-items: center
-    justify-content: center
-    position: relative
+    justify-content: space-between
     max-width: $nav-bar-max-width
     margin-left: auto
     margin-right: auto
@@ -28,22 +29,26 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
 
 .nav-bar-left-block
 .nav-bar-right-block
-    position: absolute
     display: flex
     align-items: center
+    width: 0
+
+    > *
+        position: absolute
 
 .nav-bar-left-block
-    left: 0
+    justify-content: flex-start
 
 .nav-bar-right-block
-    right: 0
+    justify-content: flex-end
 
 .nav-bar
+    $padding-left = 12px
+
     display: flex
     align-items: center
 
     > .nav-bar-link
-        $padding-left = 12px
         margin-top: 33px
         padding-left: $padding-left
         padding-right: $padding-left
@@ -53,14 +58,14 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
             &:before
                 width: 'calc(100% - %s)' % ($padding-left)
                 left: 0
-        &:last-child
-            padding-right: 0
-            &:before
-                width: 'calc(100% - %s)' % ($padding-left)
         &:before
             bottom: @margin-top - 1px
             width: 'calc(100% - 2*%s)' % ($padding-left)
             left: $padding-left
+    :nth-last-child(3)
+        padding-right: 0
+        &:before
+            width: 'calc(100% - %s)' % ($padding-left)
 
 hide-sub-nav-bar-content($initial-transform)
     transform: $initial-transform rotateX(90deg)
@@ -84,14 +89,13 @@ show-sub-nav-bar-content($initial-transform = null)
     position: absolute
     top: 100%
     left: 50%
-    width: 100vw
+    width: 100%
     background: $white
     display: flex
     flex-direction: column
     align-items: center
     transition: transform 0.2s
     hide-sub-nav-bar-content(translateX(-50%))
-
     &:hover
         show-sub-nav-bar-content(translateX(-50%))
 
@@ -142,6 +146,7 @@ show-sub-nav-bar-content($initial-transform = null)
 .shopping-bag-icon
     margin-left: 15px
     position: relative
+    padding-right: 5px
     &.with-notification-dot:after
         content: ''
         position: absolute
@@ -149,7 +154,7 @@ show-sub-nav-bar-content($initial-transform = null)
         width: 3px
         height: @width
         border-radius: 100%
-        left: calc(100% + 1px)
+        right: 0
         top: 1px
 
 .search-simple-block

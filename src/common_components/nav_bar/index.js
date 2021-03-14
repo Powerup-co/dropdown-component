@@ -120,7 +120,7 @@ export default function NavBar({
                                                 className={styles['sub-nav-bar-row-wrapper']}
                                                 style={{
                                                     // minWidth: navBarRef?.current?.clientWidth,
-                                                    minWidth: 603,
+                                                    minWidth: 596,
                                                 }}
                                             >
                                                 <div className={styles['sub-nav-bar-row']}>
@@ -158,7 +158,7 @@ export default function NavBar({
                                                 className={styles['recently-viewed']}
                                                 style={{
                                                     // minWidth: navBarRef?.current?.clientWidth,
-                                                    minWidth: 603,
+                                                    minWidth: 596,
                                                 }}
                                             >
                                                 <p>
@@ -193,7 +193,7 @@ export default function NavBar({
                                                 className={styles['custom-row']}
                                                 style={{
                                                     // minWidth: navBarRef?.current?.clientWidth,
-                                                    minWidth: 603,
+                                                    minWidth: 596,
                                                 }}
                                             >
                                                 {
@@ -225,7 +225,7 @@ export default function NavBar({
                             className={styles['search-field-block']}
                             style={{
                                 // minWidth: navBarRef?.current?.clientWidth,
-                                minWidth: 603,
+                                minWidth: 596,
                             }}
                         >
                             <div className={styles['search-field-wrapper']}>
@@ -275,7 +275,7 @@ export default function NavBar({
                                     className={styles['search-result']}
                                     style={{
                                         // minWidth: navBarRef?.current?.clientWidth,
-                                        minWidth: 603,
+                                        minWidth: 596,
                                     }}
                                     searchResult={searchResult}
                                     forceUseDefaulLinkTag={forceUseDefaulLinkTag}
@@ -288,7 +288,7 @@ export default function NavBar({
                                     className={styles['search-result-with-detail']}
                                     style={{
                                         // minWidth: navBarRef?.current?.clientWidth,
-                                        minWidth: 603,
+                                        minWidth: 596,
                                     }}
                                     searchResult={searchResultWithDetails}
                                     forceUseDefaulLinkTag={forceUseDefaulLinkTag}
