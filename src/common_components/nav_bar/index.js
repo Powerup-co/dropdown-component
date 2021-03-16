@@ -13,6 +13,7 @@ import SpinnerIcon from './svg/spinner.svg?jsx'
 import ShoppingBagIcon from './svg/shopping_bag.svg?jsx'
 import CloseIcon from './svg/close.svg?jsx'
 import EnterIcon from './svg/enter.svg?jsx'
+import MobileMenuIcon from './svg/mobile_menu.svg?jsx'
 
 import styles from './styles.styl'
 
@@ -38,12 +39,13 @@ export default function NavBar({
     const [searchText, setSearchText] = useState('')
     const [searchInProgress, setSearchInProgress] = useState(false)
     const [showFullSearch, setShowFullSearch] = useState(false)
+    const [showMobileMenu, setShowMobileMenu] = useState(false)
 
     const navBarRef = useRef(null)
 
     return (
         <div className={cn(styles['nav-bar-bg'], bgClassName, hoverBgClassName)}>
-            <div className={cn(styles['nav-bar-wrapper'], className)}>
+            <div className={cn(styles['desktop-nav-bar-wrapper'], className)}>
                 <div className={styles['nav-bar-left-block']}>
                     {logo}
                     {leftAdditionalElements}
@@ -368,6 +370,111 @@ export default function NavBar({
                     }
                 </div>
             </div>
+            <div className={cn(styles['mobile-nav-bar-wrapper'], className)}>
+                <div>
+                    <MobileMenuIcon
+                        className={cn(
+                            styles['mobile-menu-icon'],
+                            {
+                                [styles['convert-to-close']]: showMobileMenu,
+                            }
+                         )}
+                        onClick={toogleMobileMenu}
+                    />
+                    {leftAdditionalElements}
+                </div>
+                {logo}
+                <div className={styles['nav-bar-right-block']}>
+                    {rightAdditionalElements}
+                    {
+                        showShoppingBagIcon && (
+                            <Link
+                                className={cn(
+                                    styles['shopping-bag-icon'],
+                                    {
+                                        [styles['with-notification-dot']]: hasSomethingInShoppingBag,
+                                    }
+                                )}
+                                text={<ShoppingBagIcon />}
+                                path="/shopping-bag"
+                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                            />
+                        )
+                    }
+                </div>
+                <div
+                    className={cn(
+                        styles['mobile-links-list'],
+                        {
+                            [styles['active-mobile-links-list']]: showMobileMenu,
+                        }
+                    )}
+                >
+                    {
+                        linkList.map(({
+                            subLinkList = [],
+                            banner,
+                            recentlyViewed = [],
+                            customRow,
+                            hoverBgClassName: linkHoverBgClassName,
+                            ...link
+                        }) => (
+                            <div key={link.path || link.text}>
+                                <NavBarLink
+                                    forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                    {...link}
+                                    className={cn(
+                                        styles['nav-bar-link'],
+                                        link.className,
+                                    )}
+                                />
+                                {/*<div
+                                    className={cn(styles['sub-nav-bar'], bgClassName, hoverBgClassName)}
+                                >
+                                    {
+                                        subLinkList.map((row, rowIdx) => (
+                                            <div
+                                                key={`row-${rowIdx}`}
+                                                className={styles['sub-nav-bar-row-wrapper']}
+                                                style={{
+                                                    minWidth: navBarRef?.current?.clientWidth,
+                                                }}
+                                            >
+                                                <div className={styles['sub-nav-bar-row']}>
+                                                    {
+                                                        row.map((col, colIdx) => (
+                                                            <div key={`col-${colIdx}`} className={styles['sub-nav-bar-col']}>
+                                                                {
+                                                                    col.map(subLink => (
+                                                                        <div key={`${subLink.path || subLink.text}-${rowIdx}-${colIdx}`}>
+                                                                            <NavBarLink
+                                                                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                                                {...subLink}
+                                                                                className={cn(
+                                                                                    styles['nav-bar-link'],
+                                                                                    styles['sub-nav-bar-link'],
+                                                                                    subLink.className
+                                                                                )}
+                                                                            />
+                                                                        </div>
+                                                                    ))
+                                                                }
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </div>
+                                                <div>
+                                                    {banner}
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                </div>*/}
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
         </div>
     )
 
@@ -382,6 +489,19 @@ export default function NavBar({
         finally {
             setSearchInProgress(false)
         }
+    }
+
+    function toogleMobileMenu() {
+        setShowMobileMenu(prevValue => {
+            if (prevValue) {
+                unfixPage()
+            }
+            else {
+                fixPage()
+            }
+
+            return !prevValue
+        })
     }
 }
 
@@ -406,3 +526,20 @@ NavBar.propTypes = {
     showShoppingBagIcon: PropTypes.bool,
     hasSomethingInShoppingBag: PropTypes.bool,
 }
+
+function fixPage() {
+    document.body.style.top = `-${window.scrollY}px` // eslint-disable-line
+    document.body.style.position = 'fixed'
+}
+
+function unfixPage() {
+    const currentScrollY = document.body.style.top
+    document.body.style.position = ''
+    document.body.style.top = ''
+    window.scrollTo(0, parseInt(currentScrollY || '0') * -1)
+}
+
+function isFixedPage() {
+    return document.body.style.position === 'fixed'
+}
+

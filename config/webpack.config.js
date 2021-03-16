@@ -623,6 +623,9 @@ module.exports = function (webpackEnv) {
                             {
                               removeViewBox: false,
                             },
+                            {
+                              convertShapeToPath: false,
+                            }
                           ],
                           floatPrecision: 2,
                         },

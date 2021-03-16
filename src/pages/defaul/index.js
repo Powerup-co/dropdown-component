@@ -28,8 +28,6 @@ export default function DefaultPage() {
         },
     }))
 
-    console.log(quesrySearch)
-
     return (
         <Fragment>
             <NavBar
