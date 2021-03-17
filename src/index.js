@@ -265,7 +265,7 @@ export default function NavBar({
                             )
                         }
                         {
-                            !searchInProgress && !!searchResultWithDetails.count && (
+                            !searchInProgress && !!searchResultWithDetails?.count && (
                                 <SearchResultWithDetails
                                     className={styles['search-result-with-detail']}
                                     style={{
