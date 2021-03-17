@@ -1,5 +1,5 @@
-@import '../colors.styl'
-@import '../bg_image.styl'
+@import './colors.styl'
+@import './bg_image.styl'
 
 @font-face {
     font-family: 'Univers LT Pro'
@@ -32,7 +32,7 @@ body
 
 body
     background-color: $mischka
-    bg-image('~demo/page/images/bg.png')
+    bg-image('./images/bg.png')
     background-repeat: no-repeat
     background-position: center
     background-size: contain
@@ -40,7 +40,7 @@ body
 
 .banner
     background-color: $linen
-    bg-image('~demo/page/images/socks.png')
+    bg-image('./images/socks.png')
     background-repeat: no-repeat
     background-size: 130px 40px
     background-position: 0 0
@@ -77,17 +77,17 @@ body
     &:hover:before
         display: none
     &.recently-viewed-1
-        bg-image('~demo/page/images/recently_viewed_1.png')
+        bg-image('./images/recently_viewed_1.png')
     &.recently-viewed-2
-        bg-image('~demo/page/images/recently_viewed_2.png')
+        bg-image('./images/recently_viewed_2.png')
     &.recently-viewed-3
-        bg-image('~demo/page/images/recently_viewed_3.png')
+        bg-image('./images/recently_viewed_3.png')
     &.recently-viewed-4
-        bg-image('~demo/page/images/recently_viewed_4.png')
+        bg-image('./images/recently_viewed_4.png')
     &.recently-viewed-5
-        bg-image('~demo/page/images/recently_viewed_5.png')
+        bg-image('./images/recently_viewed_5.png')
     &.recently-viewed-6
-        bg-image('~demo/page/images/recently_viewed_6.png')
+        bg-image('./images/recently_viewed_6.png')
 
 .for-you-list
     display: flex
@@ -97,7 +97,7 @@ body
     background-color: $cinderella
 .new-block
     @extend .new-block-bg
-    bg-image('~demo/page/images/new_bg_1.png')
+    bg-image('./images/new_bg_1.png')
     background-repeat: no-repeat
     background-position: right top
     background-size: 160px 222px

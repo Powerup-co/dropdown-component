@@ -10,8 +10,10 @@ import Logo from './components/logo'
 
 import searchResultWithDetailsImg1 from './images/search_result_with_details_img_1.png'
 
-import styles from './styles.styl'
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import styles from '!style-loader!css-loader?modules!stylus-loader!./styles.styl'
 
+// import stylesSass from './styles.sass'
 console.log(styles)
 
 export default function DefaultPage() {
