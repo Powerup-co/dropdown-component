@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import Link from 'common_components/link'
-
+import Link from '../link'
 import NavBarLink from '../nav_bar_link'
 
 import SearchIcon from '../../svg/search.svg?jsx'

@@ -2,8 +2,8 @@ import React, {Fragment, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import Link from 'common_components/link'
 
+import Link from './components/link'
 import NavBarLink from './components/nav_bar_link'
 import SearchResult from './components/search_result'
 import SearchResultWithDetails from './components/search_result_with_details'
@@ -538,8 +538,3 @@ function unfixPage() {
     document.body.style.top = ''
     window.scrollTo(0, parseInt(currentScrollY || '0') * -1)
 }
-
-function isFixedPage() {
-    return document.body.style.position === 'fixed'
-}
-

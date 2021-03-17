@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import Link from 'common_components/link'
+import Link from '../link'
 
 import styles from './styles.styl'
 

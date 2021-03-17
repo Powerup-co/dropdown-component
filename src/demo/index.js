@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import DefaultPage from './pages/defaul'
+import Page from './page'
 
 ReactDOM.render(
     <React.StrictMode>
-        <DefaultPage />
+        <Page />
     </React.StrictMode>,
     document.getElementById('root')
 )

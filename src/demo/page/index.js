@@ -3,9 +3,10 @@ import axios from 'axios'
 import qs from 'qs'
 import cn from 'classnames'
 
-import NavBar from 'common_components/nav_bar'
-import Logo from 'common_components/logo'
-import Link from 'common_components/link'
+import NavBar from 'nav_bar'
+import Link from 'nav_bar/components/link'
+
+import Logo from './components/logo'
 
 import searchResultWithDetailsImg1 from './images/search_result_with_details_img_1.png'
 

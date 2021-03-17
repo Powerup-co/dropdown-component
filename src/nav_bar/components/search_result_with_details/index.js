@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import Link from 'common_components/link'
+import Link from '../link'
 
 import StarIcon from './svg/star.svg?jsx'
 import SearchIcon from '../../svg/search.svg?jsx'
