@@ -1,0 +1,133 @@
+@import './colors.styl'
+@import './bg_image.styl'
+
+@font-face {
+    font-family: 'Univers LT Pro'
+    font-style: normal
+    font-weight: 400
+    src: local('Univers LT Pro'), url('https://fonts.cdnfonts.com/s/51885/UniversLTPro55Roman.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Univers LT Pro'
+    font-style: normal
+    font-weight: 700
+    src: local('Univers LT Pro'), url('https://fonts.cdnfonts.com/s/51885/UniversLTPro65Bold.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Neue Montreal'
+    src: url('https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.eot') /* IE9*/
+    src: url('https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.woff2') format('woff2'), /* chrome firefox */
+        url('https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.woff') format('woff'), /* chrome firefox */
+        url('https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.ttf') format('truetype'), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+        url('https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.svg#Neue Montreal') format('svg') /* iOS 4.1- */
+}
+
+html
+body
+    height: 100%
+    width: 100%
+
+body
+    background-color: $mischka
+    bg-image('./images/bg.png')
+    background-repeat: no-repeat
+    background-position: center
+    background-size: contain
+    background-attachment: fixed
+
+.banner
+    background-color: $linen
+    bg-image('./images/socks.png')
+    background-repeat: no-repeat
+    background-size: 130px 40px
+    background-position: 0 0
+    width: 130px
+    height: 90px
+    border-radius: 2px
+    font-family: 'Univers LT Pro', sans-serif
+    text-align: center
+
+    .discount
+        font-weight: 700
+        color: $black
+        margin: 0
+        padding-top: 50px
+        font-size: 12px // TODO: need use 16px
+
+    .promo-code
+        font-weight: 400
+        color: $sandy-brown
+        margin: 0
+        font-size: 9px
+
+.recently-viewed
+    width: 70px
+    height: 97px
+    border-radius: 2px
+    display: block
+    margin-right: 18px
+    background-size: @width @height
+    background-position: 0 0
+    background-repeat: no-repeat
+    &:last-child
+        margin-right: 0
+    &:hover:before
+        display: none
+    &.recently-viewed-1
+        bg-image('./images/recently_viewed_1.png')
+    &.recently-viewed-2
+        bg-image('./images/recently_viewed_2.png')
+    &.recently-viewed-3
+        bg-image('./images/recently_viewed_3.png')
+    &.recently-viewed-4
+        bg-image('./images/recently_viewed_4.png')
+    &.recently-viewed-5
+        bg-image('./images/recently_viewed_5.png')
+    &.recently-viewed-6
+        bg-image('./images/recently_viewed_6.png')
+
+.for-you-list
+    display: flex
+    justify-content: space-between
+
+.new-block-bg
+    background-color: $cinderella
+.new-block
+    @extend .new-block-bg
+    bg-image('./images/new_bg_1.png')
+    background-repeat: no-repeat
+    background-position: right top
+    background-size: 160px 222px
+    margin-bottom: -30px
+    padding-bottom: -@margin-bottom
+    padding-top: 48px
+
+    .header
+        font-family: 'Univers LT Pro', sans-serif
+        font-weight: 700
+        font-size: 30px
+        line-height: 90%
+        color: $amaranth
+        margin: 0 0 10px
+
+    .text
+        font-family: 'Neue Montreal'
+        font-size: 10px
+        line-height: 12px
+        margin: 0 0 20px
+
+    .link
+        font-family: 'Univers LT Pro', sans-serif
+        font-weight: 700
+        font-size: 9px
+        color: $mine-shaft
+        background: $white
+        box-shadow: 0px 5px 10px rgba($black, 0.15)
+        border-radius: 20px
+        display: inline-block
+        padding: 8px 12px 6px
+        &:hover
+            box-shadow: 0px 0px 2px rgba($black, 0.15) inset
