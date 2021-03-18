@@ -12,6 +12,7 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
+    "@storybook/addon-docs": "^6.1.21",
     "axios": "^0.21.1",
     "dropdown-component": "link:..",
     "react": "link:../node_modules/react",

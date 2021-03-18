@@ -622,4 +622,9 @@ function unfixPage() {
     window.scrollTo(0, parseInt(currentScrollY || '0') * -1)
 }
 
-export {Link}
+export {
+    Link,
+    NavBarLink,
+    SearchResult,
+    SearchResultWithDetails,
+}
