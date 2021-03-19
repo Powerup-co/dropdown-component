@@ -213,31 +213,32 @@ show-sub-nav-bar-content($initial-transform = null)
         font-weight: 400
         font-size: 14px
 
-        &:focus
-            padding: 19px 35px 17px 18px
-            width: 200px
-            border: 1px solid $alto
+    &.search-with-results:hover .search-field
+    .search-field:focus
+        padding: 19px 35px 17px 18px
+        width: 200px
+        border: 1px solid $alto
+        position: absolute
+        right: -36px
+        z-index: $first-layer
+        color: $black
+
+        & ~ .search-icon
             position: absolute
-            right: -36px
+            pointer-events: none
+            right: @right + 15px
             z-index: $first-layer
-            color: $black
+            *
+                stroke: $black
 
-            & ~ .search-icon
-                position: absolute
-                pointer-events: none
-                right: @right + 15px
-                z-index: $first-layer
-                *
-                    stroke: $black
-
-            & ~ .search-result
-                right: @right
-                z-index: $first-layer
-                bottom: 0
-                display: flex
-                width: 200px
-                visibility: visible
-                pointer-events: all
+        & ~ .search-result
+            right: @right
+            z-index: $first-layer
+            bottom: 0
+            display: flex
+            width: 200px
+            visibility: visible
+            pointer-events: all
 
     &.search-in-progress
         .search-icon
