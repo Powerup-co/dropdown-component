@@ -384,17 +384,21 @@ $mobile-menu-transition-duration = 0.3s
                 transform-origin: 0px 19px 0
 
     .mobile-links-list
+        $padding-bottom = 50px
+
+        padding-left: 30px
+        padding-bottom: 0
         position: fixed
         top: $nav-bar-height
         left: 0
         right: 0
         bottom: 'calc(100% - %s)' % ($nav-bar-height)
         background: $white
-        padding-left: 30px
         overflow: hidden
         transition: bottom $mobile-menu-transition-duration linear,
             left $mobile-menu-transition-duration linear,
-            right $mobile-menu-transition-duration linear
+            right $mobile-menu-transition-duration linear,
+            padding-bottom $mobile-menu-transition-duration linear
 
         > *
             transition: opacity $mobile-menu-transition-duration 0.2s linear
@@ -402,6 +406,7 @@ $mobile-menu-transition-duration = 0.3s
 
         &.active-mobile-links-list
             bottom: 0
+            padding-bottom: $padding-bottom
             overflow: auto
 
             > *
@@ -429,6 +434,8 @@ $mobile-menu-transition-duration = 0.3s
                 margin-left: 10px
 
         .mobile-sub-nav-bar
+            padding-left: @padding-left
+            padding-bottom: @padding-bottom
             position: fixed
             top: @top
             left: 100vw
@@ -436,7 +443,6 @@ $mobile-menu-transition-duration = 0.3s
             bottom: @bottom
             z-index: $first-layer
             background: @background
-            padding-left: @padding-left
             transition: @transition
             overflow: hidden
             opacity: 1
@@ -472,6 +478,7 @@ $mobile-menu-transition-duration = 0.3s
         &.active-mobile-links-list
             .mobile-sub-nav-bar
                 bottom: 0
+                padding-bottom: $padding-bottom
 
                 > *
                     opacity: 1
