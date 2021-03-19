@@ -698,6 +698,75 @@ export default function DefaultPage() {
                     },
                 ]}
                 forceUseDefaulLinkTag
+                mobileMainMenuAdditionalBlocks={{
+                    banner: (
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                    ),
+                    recentlyViewed: [
+                        {
+                            path: '/recently_viewed_1',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-1']),
+                        },
+                        {
+                            path: '/recently_viewed_2',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-2']),
+                        },
+                        {
+                            path: '/recently_viewed_3',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-3']),
+                        },
+                        {
+                            path: '/recently_viewed_4',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-4']),
+                        },
+                        {
+                            path: '/recently_viewed_5',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-5']),
+                        },
+                        {
+                            path: '/recently_viewed_6',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-6']),
+                        },
+                    ],
+                    customRow: {
+                        title: 'For you',
+                        children: (
+                            <div className={styles['for-you-list']}>
+                                <div className={styles['banner']}>
+                                    <p className={styles['discount']}>
+                                        30% ALL SOCKS
+                                    </p>
+                                    <p className={styles['promo-code']}>
+                                        USE CODE 30SOCKS
+                                    </p>
+                                </div>
+                                <div className={styles['banner']}>
+                                    <p className={styles['discount']}>
+                                        30% ALL SOCKS
+                                    </p>
+                                    <p className={styles['promo-code']}>
+                                        USE CODE 30SOCKS
+                                    </p>
+                                </div>
+                                <div className={styles['banner']}>
+                                    <p className={styles['discount']}>
+                                        30% ALL SOCKS
+                                    </p>
+                                    <p className={styles['promo-code']}>
+                                        USE CODE 30SOCKS
+                                    </p>
+                                </div>
+                            </div>
+                        ),
+                    },
+                }}
             />
             <p>
                 <a href="/?useSimpleSearch=true">

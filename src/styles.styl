@@ -387,8 +387,7 @@ $mobile-menu-transition-duration = 0.3s
     .mobile-links-list
         $padding-bottom = 50px
 
-        padding-left: 30px
-        padding-bottom: 0
+        padding: 0 30px
         position: fixed
         top: $nav-bar-height
         left: 0
@@ -414,7 +413,7 @@ $mobile-menu-transition-duration = 0.3s
                 opacity: 1
 
         &.mobile-links-list-move-left
-            left: calc(-2 * 100vw)
+            left: calc(-100vw)
             right: 100vw
 
         .nav-bar-link
@@ -435,8 +434,7 @@ $mobile-menu-transition-duration = 0.3s
                 margin-left: 10px
 
         .mobile-sub-nav-bar
-            padding-left: @padding-left
-            padding-bottom: @padding-bottom
+            padding: @padding
             position: fixed
             top: @top
             left: 100vw
@@ -483,3 +481,6 @@ $mobile-menu-transition-duration = 0.3s
 
                 > *
                     opacity: 1
+
+        .mobile-banner
+            margin-top: 20px

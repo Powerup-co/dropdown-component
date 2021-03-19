@@ -35,6 +35,7 @@ export default function NavBar({
     searchResultWithDetails,
     showShoppingBagIcon,
     hasSomethingInShoppingBag,
+    mobileMainMenuAdditionalBlocks,
 }) {
     const [hoverMainNavBarLink, setHoverMainNavBarLink] = useState(null)
     const [hoverBgClassName, setHoverBgClassName] = useState(null)
@@ -461,6 +462,13 @@ export default function NavBar({
                         ))
                     }
                     {
+                        !!mobileMainMenuAdditionalBlocks?.banner && (
+                            <div className={styles['mobile-banner']}>
+                                {mobileMainMenuAdditionalBlocks?.banner}
+                            </div>
+                        )
+                    }
+                    {
                         linkList.map((
                             {
                                 subLinkList = [],
@@ -530,6 +538,13 @@ export default function NavBar({
                                                     ))
                                                 }
                                             </div>
+                                            {
+                                                !!banner && (
+                                                    <div className={styles['mobile-banner']}>
+                                                        {banner}
+                                                    </div>
+                                                )
+                                            }
                                         </div>
                                     ))
                                 }
@@ -590,6 +605,16 @@ NavBar.propTypes = {
     searchResultWithDetails: SearchResultWithDetails.propTypes.searchResult,
     showShoppingBagIcon: PropTypes.bool,
     hasSomethingInShoppingBag: PropTypes.bool,
+    mobileMainMenuAdditionalBlocks: PropTypes.shape({
+        banner: PropTypes.node,
+        recentlyViewed: PropTypes.arrayOf(PropTypes.shape({
+            ...Link.propTypes,
+        })),
+        customRow: PropTypes.shape({
+            title: PropTypes.string,
+            children: PropTypes.node,
+        }),
+    }),
 }
 
 function fixPage() {
