@@ -144,7 +144,6 @@ show-sub-nav-bar-content($initial-transform = null)
     &:hover + .sub-nav-bar
         show-sub-nav-bar-content(translateX(-50%))
 
-.recently-viewed
 .custom-row
     > p
         font-family: 'Univers LT Pro', sans-serif
@@ -153,9 +152,6 @@ show-sub-nav-bar-content($initial-transform = null)
         margin-top: 0
 
     margin-bottom: 30px
-
-    .recently-viewed-link-list
-        display: flex
 
 .shopping-bag-icon
     margin-left: 15px
@@ -386,8 +382,9 @@ $mobile-menu-transition-duration = 0.3s
 
     .mobile-links-list
         $padding-bottom = 50px
+        $padding-side = 30px
 
-        padding: 0 30px
+        padding: 0 $padding-side
         position: fixed
         top: $nav-bar-height
         left: 0
@@ -484,3 +481,10 @@ $mobile-menu-transition-duration = 0.3s
 
         .mobile-banner
             margin-top: 20px
+
+        .recently-viewed
+            padding: 0 1px 0 $padding-side
+            margin: 0 -1*$padding-side
+
+            > div :last-child
+                min-width: 11px

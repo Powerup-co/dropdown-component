@@ -6,6 +6,7 @@ import Link from './components/link'
 import NavBarLink from './components/nav_bar_link'
 import SearchResult from './components/search_result'
 import SearchResultWithDetails from './components/search_result_with_details'
+import RecentlyViewed from './components/recently_viewed'
 
 import SearchIcon from './svg/search.svg'
 import SpinnerIcon from './svg/spinner.svg'
@@ -161,37 +162,14 @@ export default function NavBar({
                                         ))
                                     }
                                     {
-                                        !!recentlyViewed.length && (
-                                            <div
-                                                className={styles['recently-viewed']}
+                                        !!recentlyViewed?.length && (
+                                            <RecentlyViewed
                                                 style={{
                                                     minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
                                                 }}
-                                            >
-                                                <p>
-                                                    RECENTLY VIEWED
-                                                </p>
-                                                <div className={styles['recently-viewed-link-list']}>
-                                                    {
-                                                        recentlyViewed.map(({component, ...link}, idx) => (
-                                                            component
-                                                                ? React.cloneElement(
-                                                                    component,
-                                                                    {
-                                                                        key: `component-${idx}`,
-                                                                    }
-                                                                )
-                                                                : (
-                                                                    <NavBarLink
-                                                                        key={link.path || link.text}
-                                                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                                        {...link}
-                                                                    />
-                                                                )
-                                                        ))
-                                                    }
-                                                </div>
-                                            </div>
+                                                recentlyViewedList={recentlyViewed}
+                                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                            />
                                         )
                                     }
                                     {
@@ -275,7 +253,7 @@ export default function NavBar({
                             />
                         </div>
                         {
-                            !searchInProgress && !!searchResult.length && (
+                            !searchInProgress && !!searchResult?.length && (
                                 <SearchResult
                                     className={styles['search-result']}
                                     style={{
@@ -309,7 +287,7 @@ export default function NavBar({
                                     styles['search-simple-block'],
                                     {
                                         [styles['search-in-progress']]: searchInProgress,
-                                        [styles['search-with-results']]: !!searchResult.length && !searchInProgress,
+                                        [styles['search-with-results']]: !!searchResult?.length && !searchInProgress,
                                     }
                                 )}
                             >
@@ -333,7 +311,7 @@ export default function NavBar({
                                     />
                                 </label>
                                 {
-                                    !!searchText && !searchInProgress && !!searchResult.length && (
+                                    !!searchText && !searchInProgress && !!searchResult?.length && (
                                         <SearchResult
                                             className={styles['search-result']}
                                             searchResult={searchResult}
@@ -435,7 +413,7 @@ export default function NavBar({
                                     forceUseDefaulLinkTag={forceUseDefaulLinkTag}
                                     {...link}
                                     path={
-                                        subLinkList.length
+                                        subLinkList?.length
                                             ? undefined
                                             : link.path
                                     }
@@ -443,7 +421,7 @@ export default function NavBar({
                                         <Fragment>
                                             {link.text}
                                             {
-                                                !!subLinkList.length && (
+                                                !!subLinkList?.length && (
                                                     <ArrowIcon className={styles['nav-bar-link-arrow']} />
                                                 )
                                             }
@@ -453,7 +431,7 @@ export default function NavBar({
                                         styles['nav-bar-link'],
                                         link.className,
                                     )}
-                                    onClick={() => subLinkList.length
+                                    onClick={() => subLinkList?.length
                                         ? setSelectedMobileSubMenuIdx(linkIdx)
                                         : toogleMobileMenu()
                                     }
@@ -466,6 +444,15 @@ export default function NavBar({
                             <div className={styles['mobile-banner']}>
                                 {mobileMainMenuAdditionalBlocks?.banner}
                             </div>
+                        )
+                    }
+                    {
+                        !!mobileMainMenuAdditionalBlocks.recentlyViewed?.length && (
+                            <RecentlyViewed
+                                className={styles['recently-viewed']}
+                                recentlyViewedList={mobileMainMenuAdditionalBlocks.recentlyViewed}
+                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                            />
                         )
                     }
                     {
@@ -545,6 +532,15 @@ export default function NavBar({
                                                     </div>
                                                 )
                                             }
+                                            {
+                                                !!recentlyViewed?.length && (
+                                                    <RecentlyViewed
+                                                        className={styles['recently-viewed']}
+                                                        recentlyViewedList={recentlyViewed}
+                                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                    />
+                                                )
+                                            }
                                         </div>
                                     ))
                                 }
@@ -608,12 +604,9 @@ NavBar.propTypes = {
     mobileMainMenuAdditionalBlocks: PropTypes.shape({
         banner: PropTypes.node,
         recentlyViewed: PropTypes.arrayOf(PropTypes.shape({
-            ...Link.propTypes,
+            component: PropTypes.node,
+            ...NavBarLink.propTypes,
         })),
-        customRow: PropTypes.shape({
-            title: PropTypes.string,
-            children: PropTypes.node,
-        }),
     }),
 }
 
