@@ -47,7 +47,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
-    "stylus": "^0.54.8"
+    "stylus": "^0.54.8",
+    "svgo": "^2.2.2"
   },
   "files": [
     "dist"

@@ -13,9 +13,6 @@ import searchResultWithDetailsImg1 from './images/search_result_with_details_img
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import styles from '!style-loader!css-loader?modules!stylus-loader!./styles.styl'
 
-// import stylesSass from './styles.sass'
-console.log(styles)
-
 export default function DefaultPage() {
     const [searchResult, setSearchResult] = useState([])
     const [searchResultWithDetails, setSearchResultWithDetails] = useState({})

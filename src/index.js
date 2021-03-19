@@ -370,7 +370,7 @@ export default function NavBar({
                 </div>
             </div>
             <div className={cn(styles['mobile-nav-bar-wrapper'], className)}>
-                <div>
+                <div className={styles['nav-bar-left-block']}>
                     <MobileMenuIcon
                         className={cn(
                             styles['mobile-menu-icon'],
