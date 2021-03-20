@@ -381,15 +381,45 @@ $mobile-menu-transition-duration = 0.3s
                 transform-origin: 0px 19px 0
 
     .mobile-links-list
-        $padding-bottom = 50px
-        $padding-side = 30px
+    .mobile-sub-nav-bar
+        .nav-bar-link
+            font-size: 24px
+            margin-top: 15px
+            margin-bottom: 0
+            line-height: normal
+            display: inline-block
+            &:not(a):before
+                display: none
+            &:after
+                width: 6px
+                height: @width
+                right: -10px
+                top: -2px
 
+            .nav-bar-link-arrow
+                position: relative
+                top: 1px
+                margin-left: 10px
+
+    $padding-bottom = 50px
+    $padding-side = 30px
+
+    .mobile-links-list
+    .mobile-sub-nav-bar
         padding: 0 $padding-side
         position: fixed
         top: $nav-bar-height
+        bottom: 'calc(100% - %s)' % ($nav-bar-height)
+        background: $white
+        overflow: hidden
+        transition: bottom $mobile-menu-transition-duration linear,
+            left $mobile-menu-transition-duration linear,
+            right $mobile-menu-transition-duration linear,
+            padding-bottom $mobile-menu-transition-duration linear
+
+    .mobile-links-list
         left: 0
         right: 0
-        bottom: 'calc(100% - %s)' % ($nav-bar-height)
         background: $white
         overflow: hidden
         transition: bottom $mobile-menu-transition-duration linear,
@@ -413,80 +443,55 @@ $mobile-menu-transition-duration = 0.3s
             left: calc(-100vw)
             right: 100vw
 
-        .nav-bar-link
-            font-size: 24px
-            margin-top: 15px
-            margin-bottom: 0
-            line-height: normal
-            display: inline-block
-            &:not(a):before
-                display: none
-            &:after
-                width: 6px
-                height: @width
-                right: -10px
-                top: -2px
-
-            .nav-bar-link-arrow
-                position: relative
-                top: 1px
-                margin-left: 10px
-
-        .mobile-sub-nav-bar
-            padding: @padding
-            position: fixed
-            top: @top
-            left: 100vw
-            right: calc(-2 * 100vw)
-            bottom: @bottom
-            z-index: $first-layer
-            background: @background
-            transition: @transition
-            overflow: hidden
-            opacity: 1
-
-            > *
-                transition: opacity $mobile-menu-transition-duration 0.2s
-                opacity: 0
-
-            &.active-mobile-sub-nav-bar
-                left: 0
-                right: 0
-                overflow: auto
-
-                > *
-                    opacity: 1
-
-            .sub-nav-bar-link-header
-                font-size: 36px
-                display: block
-                line-height: normal
-                margin: 15px 0 5px
-
-            .sub-nav-bar-col-separator
-                width: 60px
-                height: 4px
-                background: $silver
-                margin: 15px 0
-
-        &:not(.active-mobile-links-list)
-            .mobile-sub-nav-bar > *
-                opacity: 0
-
         &.active-mobile-links-list
-            .mobile-sub-nav-bar
+            ~ .mobile-sub-nav-bar
                 bottom: 0
                 padding-bottom: $padding-bottom
 
                 > *
                     opacity: 1
 
-        .mobile-banner
-            margin-top: 20px
+        &:not(.active-mobile-links-list)
+            ~ .mobile-sub-nav-bar > *
+                transition: opacity $mobile-menu-transition-duration
+                opacity: 0
 
-        .recently-viewed
-            padding: 0 1px 0 $padding-side
-            margin: 0 -1*$padding-side
+    .mobile-sub-nav-bar
+        left: 100vw
+        right: calc(-2 * 100vw)
+        z-index: $first-layer
+        opacity: 1
 
-            > div :last-child
-                min-width: 11px
+        > *
+            transition: opacity $mobile-menu-transition-duration 0.2s
+            opacity: 0
+
+        &.active-mobile-sub-nav-bar
+            left: 0
+            right: 0
+            overflow: auto
+
+            > *
+                opacity: 1
+
+        .sub-nav-bar-link-header
+            font-size: 36px
+            display: block
+            line-height: normal
+            margin: 15px 0 5px
+
+        .sub-nav-bar-col-separator
+            width: 60px
+            height: 4px
+            background: $silver
+            margin: 15px 0
+
+    .mobile-banner
+        margin-top: 20px
+
+    .recently-viewed
+        padding: 0 1px 0 $padding-side
+        margin: 0 -1*$padding-side
+
+        > div :last-child
+            min-width: 11px

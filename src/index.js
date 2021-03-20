@@ -455,99 +455,99 @@ export default function NavBar({
                             />
                         )
                     }
-                    {
-                        linkList.map((
-                            {
-                                subLinkList = [],
-                                banner,
-                                recentlyViewed = [],
-                                customRow,
-                                hoverBgClassName: linkHoverBgClassName,
-                                ...link
-                            },
-                            linkIdx
-                        ) => (
-                            <div
-                                key={`mobile-sub-nav-bar-${link.path || link.text}`}
-                                className={cn(
-                                    styles['mobile-sub-nav-bar'],
-                                    {
-                                        [styles['active-mobile-sub-nav-bar']]: linkIdx === selectedMobileSubMenuIdx,
-                                    },
-                                    bgClassName,
-                                    hoverBgClassName,
-                                )}
-                            >
+                </div>
+                {
+                    linkList.map((
+                        {
+                            subLinkList = [],
+                            banner,
+                            recentlyViewed = [],
+                            customRow,
+                            hoverBgClassName: linkHoverBgClassName,
+                            ...link
+                        },
+                        linkIdx
+                    ) => (
+                        <div
+                            key={`mobile-sub-nav-bar-${link.path || link.text}`}
+                            className={cn(
+                                styles['mobile-sub-nav-bar'],
                                 {
-                                    subLinkList.map((row, rowIdx) => (
-                                        <div
-                                            key={`mobile-row-${rowIdx}`}
-                                            className={styles['sub-nav-bar-row-wrapper']}
-                                        >
-                                            <NavBarLink
-                                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                text={link.text}
-                                                className={cn(
-                                                    styles['sub-nav-bar-link-header'],
-                                                    link.className,
-                                                )}
-                                                isBold
-                                            />
-                                            <NavBarLink
-                                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                text="BACK"
-                                                className={styles['nav-bar-link']}
-                                                onClick={() => setSelectedMobileSubMenuIdx(null)}
-                                                isBold
-                                            />
-                                            <div className={styles['sub-nav-bar-row']}>
-                                                {
-                                                    row.map((col, colIdx) => (
-                                                        <div key={`col-${colIdx}`} className={styles['sub-nav-bar-col']}>
-                                                            <div className={styles['sub-nav-bar-col-separator']} />
-                                                            {
-                                                                col.map(subLink => (
-                                                                    <div key={`${subLink.path || subLink.text}-${rowIdx}-${colIdx}`}>
-                                                                        <NavBarLink
-                                                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                                            {...subLink}
-                                                                            className={cn(
-                                                                                styles['nav-bar-link'],
-                                                                                styles['sub-nav-bar-link'],
-                                                                                subLink.className
-                                                                            )}
-                                                                            onClick={toogleMobileMenu}
-                                                                        />
-                                                                    </div>
-                                                                ))
-                                                            }
-                                                        </div>
-                                                    ))
-                                                }
-                                            </div>
+                                    [styles['active-mobile-sub-nav-bar']]: linkIdx === selectedMobileSubMenuIdx,
+                                },
+                                bgClassName,
+                                hoverBgClassName,
+                            )}
+                        >
+                            {
+                                subLinkList.map((row, rowIdx) => (
+                                    <div
+                                        key={`mobile-row-${rowIdx}`}
+                                        className={styles['sub-nav-bar-row-wrapper']}
+                                    >
+                                        <NavBarLink
+                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                            text={link.text}
+                                            className={cn(
+                                                styles['sub-nav-bar-link-header'],
+                                                link.className,
+                                            )}
+                                            isBold
+                                        />
+                                        <NavBarLink
+                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                            text="BACK"
+                                            className={styles['nav-bar-link']}
+                                            onClick={() => setSelectedMobileSubMenuIdx(null)}
+                                            isBold
+                                        />
+                                        <div className={styles['sub-nav-bar-row']}>
                                             {
-                                                !!banner && (
-                                                    <div className={styles['mobile-banner']}>
-                                                        {banner}
+                                                row.map((col, colIdx) => (
+                                                    <div key={`col-${colIdx}`} className={styles['sub-nav-bar-col']}>
+                                                        <div className={styles['sub-nav-bar-col-separator']} />
+                                                        {
+                                                            col.map(subLink => (
+                                                                <div key={`${subLink.path || subLink.text}-${rowIdx}-${colIdx}`}>
+                                                                    <NavBarLink
+                                                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                                        {...subLink}
+                                                                        className={cn(
+                                                                            styles['nav-bar-link'],
+                                                                            styles['sub-nav-bar-link'],
+                                                                            subLink.className
+                                                                        )}
+                                                                        onClick={toogleMobileMenu}
+                                                                    />
+                                                                </div>
+                                                            ))
+                                                        }
                                                     </div>
-                                                )
-                                            }
-                                            {
-                                                !!recentlyViewed?.length && (
-                                                    <RecentlyViewed
-                                                        className={styles['recently-viewed']}
-                                                        recentlyViewedList={recentlyViewed}
-                                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                    />
-                                                )
+                                                ))
                                             }
                                         </div>
-                                    ))
-                                }
-                            </div>
-                        ))
-                    }
-                </div>
+                                        {
+                                            !!banner && (
+                                                <div className={styles['mobile-banner']}>
+                                                    {banner}
+                                                </div>
+                                            )
+                                        }
+                                        {
+                                            !!recentlyViewed?.length && (
+                                                <RecentlyViewed
+                                                    className={styles['recently-viewed']}
+                                                    recentlyViewedList={recentlyViewed}
+                                                    forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                />
+                                            )
+                                        }
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    ))
+                }
             </div>
         </div>
     )
