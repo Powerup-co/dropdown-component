@@ -13,9 +13,6 @@ import searchResultWithDetailsImg1 from './images/search_result_with_details_img
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import styles from '!style-loader!css-loader?modules!stylus-loader!./styles.styl'
 
-// import stylesSass from './styles.sass'
-console.log(styles)
-
 export default function DefaultPage() {
     const [searchResult, setSearchResult] = useState([])
     const [searchResultWithDetails, setSearchResultWithDetails] = useState({})
@@ -188,7 +185,7 @@ export default function DefaultPage() {
                             },
                         ],
                         customRow: {
-                            title: 'For you',
+                            title: 'FOR YOU',
                             children: (
                                 <div className={styles['for-you-list']}>
                                     <div className={styles['banner']}>
@@ -372,7 +369,7 @@ export default function DefaultPage() {
                             </div>
                         ),
                         customRow: {
-                            title: 'For you',
+                            title: 'FOR YOU',
                             children: (
                                 <div className={styles['for-you-list']}>
                                     <div className={styles['banner']}>
@@ -504,7 +501,7 @@ export default function DefaultPage() {
                             },
                         ],
                         customRow: {
-                            title: 'For you',
+                            title: 'FOR YOU',
                             children: (
                                 <div className={styles['for-you-list']}>
                                     <div className={styles['banner']}>
@@ -701,6 +698,44 @@ export default function DefaultPage() {
                     },
                 ]}
                 forceUseDefaulLinkTag
+                mobileMainMenuAdditionalBlocks={{
+                    banner: (
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                    ),
+                    recentlyViewed: [
+                        {
+                            path: '/recently_viewed_1',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-1']),
+                        },
+                        {
+                            path: '/recently_viewed_2',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-2']),
+                        },
+                        {
+                            path: '/recently_viewed_3',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-3']),
+                        },
+                        {
+                            path: '/recently_viewed_4',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-4']),
+                        },
+                        {
+                            path: '/recently_viewed_5',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-5']),
+                        },
+                        {
+                            path: '/recently_viewed_6',
+                            className: cn(styles['recently-viewed'], styles['recently-viewed-6']),
+                        },
+                    ],
+                }}
             />
             <p>
                 <a href="/?useSimpleSearch=true">

@@ -6,6 +6,7 @@ import Link from './components/link'
 import NavBarLink from './components/nav_bar_link'
 import SearchResult from './components/search_result'
 import SearchResultWithDetails from './components/search_result_with_details'
+import RecentlyViewed from './components/recently_viewed'
 
 import SearchIcon from './svg/search.svg'
 import SpinnerIcon from './svg/spinner.svg'
@@ -13,8 +14,11 @@ import ShoppingBagIcon from './svg/shopping_bag.svg'
 import CloseIcon from './svg/close.svg'
 import EnterIcon from './svg/enter.svg'
 import MobileMenuIcon from './svg/mobile_menu.svg'
+import ArrowIcon from './svg/arrow.svg'
 
 import styles from './styles.styl'
+
+const mobileMenuTransitionDuration = Number(styles.mobileMenuTransitionDuration.replace('s', '')) * 1000
 
 export default function NavBar({
     linkList,
@@ -32,6 +36,7 @@ export default function NavBar({
     searchResultWithDetails,
     showShoppingBagIcon,
     hasSomethingInShoppingBag,
+    mobileMainMenuAdditionalBlocks,
 }) {
     const [hoverMainNavBarLink, setHoverMainNavBarLink] = useState(null)
     const [hoverBgClassName, setHoverBgClassName] = useState(null)
@@ -39,6 +44,10 @@ export default function NavBar({
     const [searchInProgress, setSearchInProgress] = useState(false)
     const [showFullSearch, setShowFullSearch] = useState(false)
     const [showMobileMenu, setShowMobileMenu] = useState(false)
+    const [selectedMobileSubMenuIdx, setSelectedMobileSubMenuIdx] = useState(null)
+
+    // const [showMobileMenu, setShowMobileMenu] = useState(true)
+    // const [selectedMobileSubMenuIdx, setSelectedMobileSubMenuIdx] = useState(1)
 
     const navBarRef = useRef(null)
 
@@ -120,7 +129,7 @@ export default function NavBar({
                                                 key={`row-${rowIdx}`}
                                                 className={styles['sub-nav-bar-row-wrapper']}
                                                 style={{
-                                                    minWidth: navBarRef?.current?.clientWidth,
+                                                    minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
                                                 }}
                                             >
                                                 <div className={styles['sub-nav-bar-row']}>
@@ -153,37 +162,14 @@ export default function NavBar({
                                         ))
                                     }
                                     {
-                                        !!recentlyViewed.length && (
-                                            <div
-                                                className={styles['recently-viewed']}
+                                        !!recentlyViewed?.length && (
+                                            <RecentlyViewed
                                                 style={{
-                                                    minWidth: navBarRef?.current?.clientWidth,
+                                                    minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
                                                 }}
-                                            >
-                                                <p>
-                                                    RECENTLY VIEWED
-                                                </p>
-                                                <div className={styles['recently-viewed-link-list']}>
-                                                    {
-                                                        recentlyViewed.map(({component, ...link}, idx) => (
-                                                            component
-                                                                ? React.cloneElement(
-                                                                    component,
-                                                                    {
-                                                                        key: `component-${idx}`,
-                                                                    }
-                                                                )
-                                                                : (
-                                                                    <NavBarLink
-                                                                        key={link.path || link.text}
-                                                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                                        {...link}
-                                                                    />
-                                                                )
-                                                        ))
-                                                    }
-                                                </div>
-                                            </div>
+                                                recentlyViewedList={recentlyViewed}
+                                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                            />
                                         )
                                     }
                                     {
@@ -191,7 +177,7 @@ export default function NavBar({
                                             <div
                                                 className={styles['custom-row']}
                                                 style={{
-                                                    minWidth: navBarRef?.current?.clientWidth,
+                                                    minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
                                                 }}
                                             >
                                                 {
@@ -222,7 +208,7 @@ export default function NavBar({
                         <div
                             className={styles['search-field-block']}
                             style={{
-                                minWidth: navBarRef?.current?.clientWidth,
+                                minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
                             }}
                         >
                             <div className={styles['search-field-wrapper']}>
@@ -267,11 +253,11 @@ export default function NavBar({
                             />
                         </div>
                         {
-                            !searchInProgress && !!searchResult.length && (
+                            !searchInProgress && !!searchResult?.length && (
                                 <SearchResult
                                     className={styles['search-result']}
                                     style={{
-                                        minWidth: navBarRef?.current?.clientWidth,
+                                        minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
                                     }}
                                     searchResult={searchResult}
                                     forceUseDefaulLinkTag={forceUseDefaulLinkTag}
@@ -283,7 +269,7 @@ export default function NavBar({
                                 <SearchResultWithDetails
                                     className={styles['search-result-with-detail']}
                                     style={{
-                                        minWidth: navBarRef?.current?.clientWidth,
+                                        minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
                                     }}
                                     searchResult={searchResultWithDetails}
                                     forceUseDefaulLinkTag={forceUseDefaulLinkTag}
@@ -301,7 +287,7 @@ export default function NavBar({
                                     styles['search-simple-block'],
                                     {
                                         [styles['search-in-progress']]: searchInProgress,
-                                        [styles['search-with-results']]: !!searchResult.length && !searchInProgress,
+                                        [styles['search-with-results']]: !!searchResult?.length && !searchInProgress,
                                     }
                                 )}
                             >
@@ -325,7 +311,7 @@ export default function NavBar({
                                     />
                                 </label>
                                 {
-                                    !!searchText && !searchInProgress && !!searchResult.length && (
+                                    !!searchText && !searchInProgress && !!searchResult?.length && (
                                         <SearchResult
                                             className={styles['search-result']}
                                             searchResult={searchResult}
@@ -370,7 +356,7 @@ export default function NavBar({
                 </div>
             </div>
             <div className={cn(styles['mobile-nav-bar-wrapper'], className)}>
-                <div>
+                <div className={styles['nav-bar-left-block']}>
                     <MobileMenuIcon
                         className={cn(
                             styles['mobile-menu-icon'],
@@ -406,69 +392,158 @@ export default function NavBar({
                         styles['mobile-links-list'],
                         {
                             [styles['active-mobile-links-list']]: showMobileMenu,
+                            [styles['mobile-links-list-move-left']]: selectedMobileSubMenuIdx !== null,
                         }
                     )}
                 >
                     {
-                        linkList.map(({
-                            subLinkList = [],
-                            banner,
-                            recentlyViewed = [],
-                            customRow,
-                            hoverBgClassName: linkHoverBgClassName,
-                            ...link
-                        }) => (
-                            <div key={link.path || link.text}>
+                        linkList.map((
+                            {
+                                subLinkList = [],
+                                banner,
+                                recentlyViewed = [],
+                                customRow,
+                                hoverBgClassName: linkHoverBgClassName,
+                                ...link
+                            },
+                            linkIdx
+                        ) => (
+                            <div key={`mobile-nav-bar-link-${link.path || link.text}`}>
                                 <NavBarLink
                                     forceUseDefaulLinkTag={forceUseDefaulLinkTag}
                                     {...link}
+                                    path={
+                                        subLinkList?.length
+                                            ? undefined
+                                            : link.path
+                                    }
+                                    text={
+                                        <Fragment>
+                                            {link.text}
+                                            {
+                                                !!subLinkList?.length && (
+                                                    <ArrowIcon className={styles['nav-bar-link-arrow']} />
+                                                )
+                                            }
+                                        </Fragment>
+                                    }
                                     className={cn(
                                         styles['nav-bar-link'],
                                         link.className,
                                     )}
-                                />
-                                {/*<div
-                                    className={cn(styles['sub-nav-bar'], bgClassName, hoverBgClassName)}
-                                >
-                                    {
-                                        subLinkList.map((row, rowIdx) => (
-                                            <div
-                                                key={`row-${rowIdx}`}
-                                                className={styles['sub-nav-bar-row-wrapper']}
-                                                style={{
-                                                    minWidth: navBarRef?.current?.clientWidth,
-                                                }}
-                                            >
-                                                <div className={styles['sub-nav-bar-row']}>
-                                                    {
-                                                        row.map((col, colIdx) => (
-                                                            <div key={`col-${colIdx}`} className={styles['sub-nav-bar-col']}>
-                                                                {
-                                                                    col.map(subLink => (
-                                                                        <div key={`${subLink.path || subLink.text}-${rowIdx}-${colIdx}`}>
-                                                                            <NavBarLink
-                                                                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                                                                {...subLink}
-                                                                                className={cn(
-                                                                                    styles['nav-bar-link'],
-                                                                                    styles['sub-nav-bar-link'],
-                                                                                    subLink.className
-                                                                                )}
-                                                                            />
-                                                                        </div>
-                                                                    ))
-                                                                }
-                                                            </div>
-                                                        ))
-                                                    }
-                                                </div>
-                                                <div>
-                                                    {banner}
-                                                </div>
-                                            </div>
-                                        ))
+                                    onClick={() => subLinkList?.length
+                                        ? setSelectedMobileSubMenuIdx(linkIdx)
+                                        : toogleMobileMenu()
                                     }
-                                </div>*/}
+                                />
+                            </div>
+                        ))
+                    }
+                    {
+                        !!mobileMainMenuAdditionalBlocks?.banner && (
+                            <div className={styles['mobile-banner']}>
+                                {mobileMainMenuAdditionalBlocks?.banner}
+                            </div>
+                        )
+                    }
+                    {
+                        !!mobileMainMenuAdditionalBlocks.recentlyViewed?.length && (
+                            <RecentlyViewed
+                                className={styles['recently-viewed']}
+                                recentlyViewedList={mobileMainMenuAdditionalBlocks.recentlyViewed}
+                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                            />
+                        )
+                    }
+                    {
+                        linkList.map((
+                            {
+                                subLinkList = [],
+                                banner,
+                                recentlyViewed = [],
+                                customRow,
+                                hoverBgClassName: linkHoverBgClassName,
+                                ...link
+                            },
+                            linkIdx
+                        ) => (
+                            <div
+                                key={`mobile-sub-nav-bar-${link.path || link.text}`}
+                                className={cn(
+                                    styles['mobile-sub-nav-bar'],
+                                    {
+                                        [styles['active-mobile-sub-nav-bar']]: linkIdx === selectedMobileSubMenuIdx,
+                                    },
+                                    bgClassName,
+                                    hoverBgClassName,
+                                )}
+                            >
+                                {
+                                    subLinkList.map((row, rowIdx) => (
+                                        <div
+                                            key={`mobile-row-${rowIdx}`}
+                                            className={styles['sub-nav-bar-row-wrapper']}
+                                        >
+                                            <NavBarLink
+                                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                text={link.text}
+                                                className={cn(
+                                                    styles['sub-nav-bar-link-header'],
+                                                    link.className,
+                                                )}
+                                                isBold
+                                            />
+                                            <NavBarLink
+                                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                text="BACK"
+                                                className={styles['nav-bar-link']}
+                                                onClick={() => setSelectedMobileSubMenuIdx(null)}
+                                                isBold
+                                            />
+                                            <div className={styles['sub-nav-bar-row']}>
+                                                {
+                                                    row.map((col, colIdx) => (
+                                                        <div key={`col-${colIdx}`} className={styles['sub-nav-bar-col']}>
+                                                            <div className={styles['sub-nav-bar-col-separator']} />
+                                                            {
+                                                                col.map(subLink => (
+                                                                    <div key={`${subLink.path || subLink.text}-${rowIdx}-${colIdx}`}>
+                                                                        <NavBarLink
+                                                                            forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                                            {...subLink}
+                                                                            className={cn(
+                                                                                styles['nav-bar-link'],
+                                                                                styles['sub-nav-bar-link'],
+                                                                                subLink.className
+                                                                            )}
+                                                                            onClick={toogleMobileMenu}
+                                                                        />
+                                                                    </div>
+                                                                ))
+                                                            }
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                            {
+                                                !!banner && (
+                                                    <div className={styles['mobile-banner']}>
+                                                        {banner}
+                                                    </div>
+                                                )
+                                            }
+                                            {
+                                                !!recentlyViewed?.length && (
+                                                    <RecentlyViewed
+                                                        className={styles['recently-viewed']}
+                                                        recentlyViewedList={recentlyViewed}
+                                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                                    />
+                                                )
+                                            }
+                                        </div>
+                                    ))
+                                }
                             </div>
                         ))
                     }
@@ -494,6 +569,8 @@ export default function NavBar({
         setShowMobileMenu(prevValue => {
             if (prevValue) {
                 unfixPage()
+                // TODO: find a way to fix
+                setTimeout(() => setSelectedMobileSubMenuIdx(null), mobileMenuTransitionDuration)
             }
             else {
                 fixPage()
@@ -524,6 +601,13 @@ NavBar.propTypes = {
     searchResultWithDetails: SearchResultWithDetails.propTypes.searchResult,
     showShoppingBagIcon: PropTypes.bool,
     hasSomethingInShoppingBag: PropTypes.bool,
+    mobileMainMenuAdditionalBlocks: PropTypes.shape({
+        banner: PropTypes.node,
+        recentlyViewed: PropTypes.arrayOf(PropTypes.shape({
+            component: PropTypes.node,
+            ...NavBarLink.propTypes,
+        })),
+    }),
 }
 
 function fixPage() {

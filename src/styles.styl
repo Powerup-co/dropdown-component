@@ -1,5 +1,6 @@
 @import './colors.styl'
 @import './screen_size.styl'
+@import './z_index.styl'
 
 $nav-bar-height = 80px
 $nav-bar-max-width = $screen-xxl - 2 * 165px
@@ -29,11 +30,11 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
         outline: none
 
 .desktop-nav-bar-wrapper
-    @media(max-width: $screen-md - 1px)
+    @media(max-width: $screen-lg - 1px)
         display: none
 
 .mobile-nav-bar-wrapper
-    @media(min-width: $screen-md - 1px)
+    @media(min-width: $screen-lg - 1px)
         display: none
 
 .nav-bar-left-block
@@ -143,7 +144,6 @@ show-sub-nav-bar-content($initial-transform = null)
     &:hover + .sub-nav-bar
         show-sub-nav-bar-content(translateX(-50%))
 
-.recently-viewed
 .custom-row
     > p
         font-family: 'Univers LT Pro', sans-serif
@@ -152,9 +152,6 @@ show-sub-nav-bar-content($initial-transform = null)
         margin-top: 0
 
     margin-bottom: 30px
-
-    .recently-viewed-link-list
-        display: flex
 
 .shopping-bag-icon
     margin-left: 15px
@@ -212,31 +209,32 @@ show-sub-nav-bar-content($initial-transform = null)
         font-weight: 400
         font-size: 14px
 
-        &:focus
-            padding: 19px 35px 17px 18px
-            width: 200px
-            border: 1px solid $alto
+    &.search-with-results:hover .search-field
+    .search-field:focus
+        padding: 19px 35px 17px 18px
+        width: 200px
+        border: 1px solid $alto
+        position: absolute
+        right: -36px
+        z-index: $first-layer
+        color: $black
+
+        & ~ .search-icon
             position: absolute
-            right: -36px
-            z-index: 1
-            color: $black
+            pointer-events: none
+            right: @right + 15px
+            z-index: $first-layer
+            *
+                stroke: $black
 
-            & ~ .search-icon
-                position: absolute
-                pointer-events: none
-                right: @right + 15px
-                z-index: 1
-                *
-                    stroke: $black
-
-            & ~ .search-result
-                right: @right
-                z-index: 1
-                bottom: 0
-                display: flex
-                width: 200px
-                visibility: visible
-                pointer-events: all
+        & ~ .search-result
+            right: @right
+            z-index: $first-layer
+            bottom: 0
+            display: flex
+            width: 200px
+            visibility: visible
+            pointer-events: all
 
     &.search-in-progress
         .search-icon
@@ -347,7 +345,12 @@ show-sub-nav-bar-content($initial-transform = null)
 
 // mobile
 
-@media(max-width: $screen-md - 1px)
+$mobile-menu-transition-duration = 0.3s
+
+:export
+    mobileMenuTransitionDuration $mobile-menu-transition-duration
+
+@media(max-width: $screen-lg - 1px)
     .mobile-nav-bar-wrapper
         padding: 0 30px
         margin: 0
@@ -378,34 +381,112 @@ show-sub-nav-bar-content($initial-transform = null)
                 transform-origin: 0px 19px 0
 
     .mobile-links-list
+        $padding-bottom = 50px
+        $padding-side = 30px
+
+        padding: 0 $padding-side
         position: fixed
         top: $nav-bar-height
         left: 0
         right: 0
         bottom: 'calc(100% - %s)' % ($nav-bar-height)
         background: $white
-        padding-left: 30px
         overflow: hidden
-        transition: bottom 0.3s
+        transition: bottom $mobile-menu-transition-duration linear,
+            left $mobile-menu-transition-duration linear,
+            right $mobile-menu-transition-duration linear,
+            padding-bottom $mobile-menu-transition-duration linear
 
         > *
-            transition: opacity 0.3s 0.2s
+            transition: opacity $mobile-menu-transition-duration 0.2s linear
             opacity: 0
 
         &.active-mobile-links-list
             bottom: 0
+            padding-bottom: $padding-bottom
             overflow: auto
 
             > *
                 opacity: 1
 
+        &.mobile-links-list-move-left
+            left: calc(-100vw)
+            right: 100vw
+
         .nav-bar-link
             font-size: 24px
             margin-top: 15px
+            margin-bottom: 0
             line-height: normal
             display: inline-block
+            &:not(a):before
+                display: none
             &:after
                 width: 6px
                 height: @width
                 right: -10px
                 top: -2px
+
+            .nav-bar-link-arrow
+                position: relative
+                top: 1px
+                margin-left: 10px
+
+        .mobile-sub-nav-bar
+            padding: @padding
+            position: fixed
+            top: @top
+            left: 100vw
+            right: calc(-2 * 100vw)
+            bottom: @bottom
+            z-index: $first-layer
+            background: @background
+            transition: @transition
+            overflow: hidden
+            opacity: 1
+
+            > *
+                transition: opacity $mobile-menu-transition-duration 0.2s
+                opacity: 0
+
+            &.active-mobile-sub-nav-bar
+                left: 0
+                right: 0
+                overflow: auto
+
+                > *
+                    opacity: 1
+
+            .sub-nav-bar-link-header
+                font-size: 36px
+                display: block
+                line-height: normal
+                margin: 15px 0 5px
+
+            .sub-nav-bar-col-separator
+                width: 60px
+                height: 4px
+                background: $silver
+                margin: 15px 0
+
+        &:not(.active-mobile-links-list)
+            .mobile-sub-nav-bar > *
+                opacity: 0
+
+        &.active-mobile-links-list
+            .mobile-sub-nav-bar
+                bottom: 0
+                padding-bottom: $padding-bottom
+
+                > *
+                    opacity: 1
+
+        .mobile-banner
+            margin-top: 20px
+
+        .recently-viewed
+            padding: 0 1px 0 $padding-side
+            margin: 0 -1*$padding-side
+
+            > div :last-child
+                min-width: 11px

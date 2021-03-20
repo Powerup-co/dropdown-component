@@ -1,3 +1,5 @@
+const { extendDefaultPlugins } = require('svgo')
+
 module.exports = {
     presets: [
         [
@@ -14,7 +16,27 @@ module.exports = {
     ],
     plugins: [
         '@babel/plugin-syntax-jsx',
-        'inline-react-svg',
+        [
+            'inline-react-svg',
+            {
+                svgo: {
+                    plugins: extendDefaultPlugins([
+                        {
+                            name: 'removeTitle',
+                            active: false,
+                        },
+                        {
+                            name: 'removeViewBox',
+                            active: false,
+                        },
+                        {
+                            name: 'convertShapeToPath',
+                            active: false,
+                        },
+                    ])
+                }
+            }
+        ],
         [
             'module-resolver',
             {
