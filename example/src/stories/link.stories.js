@@ -9,16 +9,14 @@ export default {
     component: LinkComponent,
     argTypes: {
         path: createArgTypes({
-            description: 'Link href',
+            description: 'Link\'s href',
             isRequired: true,
             typeName: 'String',
             defaultValue: LinkComponent?.defaultProps?.path,
-            controlType: 'text',
         }),
         text: createArgTypes({
             typeName: 'String',
             defaultValue: LinkComponent?.defaultProps?.text,
-            controlType: 'text',
         }),
         className: createArgTypes({
             typeName: 'String',

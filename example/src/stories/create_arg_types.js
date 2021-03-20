@@ -1,23 +1,30 @@
+import cleanDeep from 'clean-deep'
+
 export default ({
     description,
     isRequired,
     typeName,
     defaultValue,
     controlType,
-}) => ({
-    description: description,
-    type: {
-        required: isRequired,
-    },
-    table: {
+}) => cleanDeep(
+    {
+        description: description,
         type: {
-            summary: typeName,
+            required: isRequired,
         },
-        defaultValue: {
-            detail: defaultValue,
-        }
+        table: {
+            type: {
+                summary: typeName,
+            },
+            defaultValue: {
+                detail: defaultValue,
+            }
+        },
+        control: {
+            type: controlType,
+        },
     },
-    control: {
-        type: controlType,
-    },
-})
+    {
+        nullValues: false,
+    }
+)
