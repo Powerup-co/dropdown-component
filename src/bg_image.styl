@@ -1,4 +1,4 @@
-$quality-list = (144dpi 1.5dppx) (240dpi 2.5dppx)
+$quality-list = (1.5 144dpi 1.5dppx) (2.5 240dpi 2.5dppx)
 
 bg-image($url, $maximum-quality = 3) // $maximum-quality = 2 or 3
     $urlParts = match('^(.*)(\.\w{3,4})$', $url)
@@ -7,5 +7,7 @@ bg-image($url, $maximum-quality = 3) // $maximum-quality = 2 or 3
     for $num in range(2, $maximum-quality)
         $quality-prefix = join('', $num x $urlParts[2])
 
-        @media (min-resolution: $quality-list[$num - 2][0]), (min-resolution: $quality-list[$num - 2][1])
+        @media (-webkit-min-device-pixel-ratio: $quality-list[$num - 2][0]),
+            (min-resolution: $quality-list[$num - 2][1]),
+            (min-resolution: $quality-list[$num - 2][2])
             background-image: url(join('@', $urlParts[1] $quality-prefix))
