@@ -73,6 +73,9 @@ export default function SearchResultWithDetails({
 }
 
 SearchResultWithDetails.propTypes = {
+    /**
+     * If `count` is greater than the number of items in `searchResultList`, then a link to `linkToAllResults` will be displayed
+     */
     searchResult: PropTypes.shape({
         searchResultList: PropTypes.arrayOf(PropTypes.shape({
             ...Link.propTypes,
@@ -85,10 +88,17 @@ SearchResultWithDetails.propTypes = {
         })),
         count: PropTypes.number,
         linkToAllResults: PropTypes.string,
-    }),
+    }).isRequired,
 
     className: PropTypes.string,
+    /**
+     * If you are not using react-router or want the link to work as usual, then set to `True`
+     */
     forceUseDefaulLinkTag: PropTypes.bool,
+}
+
+SearchResultWithDetails.defaultProps = {
+    forceUseDefaulLinkTag: false,
 }
 
 function priceFormat(value) {
