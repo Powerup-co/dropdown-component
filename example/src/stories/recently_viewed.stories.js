@@ -8,25 +8,18 @@ import styles from '!style-loader!css-loader?modules!stylus-loader!../page/recen
 
 import createArgTypes from './create_arg_types'
 
+RecentlyViewedComponent.__docgenInfo.props.recentlyViewedList.type.value.value['...otherProps'] = {
+    name: 'NavBarLink',
+    required: false,
+}
+
 export default {
     title: 'Recently Viewed',
     component: RecentlyViewedComponent,
     argTypes: {
         recentlyViewedList: createArgTypes({
-            description: 'List of items to display. Can be any component or a list of parameters for NavBarLink',
-            isRequired: true,
-            typeName: 'Array<{component: Node, ...NavBarLink}>',
-            defaultValue: RecentlyViewedComponent?.defaultProps?.recentlyViewedList,
-        }),
-        className: createArgTypes({
-            typeName: 'String',
-            defaultValue: RecentlyViewedComponent?.defaultProps?.className,
-            controlType: 'text',
-        }),
-        forceUseDefaulLinkTag: createArgTypes({
-            description: 'If you are not using react-router or want the link to work as usual, then set to "True"',
-            typeName: 'Boolean',
-            defaultValue: RecentlyViewedComponent?.defaultProps?.forceUseDefaulLinkTag,
+            typeName: '[{ component: node, ...otherProps: NavBarLink }]',
+            typeNameDetail: null,
         }),
     },
 }

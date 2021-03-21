@@ -5,6 +5,7 @@ export default ({
     description,
     isRequired,
     typeName,
+    typeNameDetail,
     defaultValue,
     controlType,
 }) => cleanDeep(
@@ -16,6 +17,7 @@ export default ({
         table: {
             type: {
                 summary: typeName,
+                detail: typeNameDetail,
             },
             defaultValue: {
                 detail: defaultValue,

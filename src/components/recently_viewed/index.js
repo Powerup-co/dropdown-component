@@ -44,11 +44,21 @@ export default function RecentlyViewed({
 }
 
 RecentlyViewed.propTypes = {
+    /**
+     * List of items to display. Can be any component or a list of parameters for `NavBarLink`
+     */
     recentlyViewedList: PropTypes.arrayOf(PropTypes.shape({
         component: PropTypes.node,
         ...NavBarLink.propTypes,
     })).isRequired,
 
     className: PropTypes.string,
+    /**
+     * If you are not using react-router or want the link to work as usual, then set to `True`
+     */
     forceUseDefaulLinkTag: PropTypes.bool,
+}
+
+RecentlyViewed.defaultProps = {
+    forceUseDefaulLinkTag: false,
 }
