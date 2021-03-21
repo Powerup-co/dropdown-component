@@ -5,7 +5,7 @@ export const parameters = {
             order: [
                 'Link',
                 'Nav Bar Link',
-
+                'Recently Viewed',
 
 
                 'NavBar',

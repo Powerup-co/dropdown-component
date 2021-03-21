@@ -625,6 +625,7 @@ function unfixPage() {
 export {
     Link,
     NavBarLink,
+    RecentlyViewed,
     SearchResult,
     SearchResultWithDetails,
 }
