@@ -75,7 +75,7 @@ SearchResult.propTypes = {
             PropTypes.array,
             PropTypes.string,
         ]),
-    })).isRequired,
+    })),
 
     className: PropTypes.string,
     /**

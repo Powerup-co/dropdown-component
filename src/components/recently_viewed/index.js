@@ -50,7 +50,7 @@ RecentlyViewed.propTypes = {
     recentlyViewedList: PropTypes.arrayOf(PropTypes.shape({
         component: PropTypes.node,
         ...NavBarLink.propTypes,
-    })).isRequired,
+    })),
 
     className: PropTypes.string,
     /**

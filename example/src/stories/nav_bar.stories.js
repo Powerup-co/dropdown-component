@@ -1,23 +1,70 @@
 import React from 'react'
+import cn from 'classnames'
 
-import NavBar from 'dropdown-component'
+import NavBarComponent, {Link} from 'dropdown-component'
 import 'dropdown-component/dist/index.css'
 
+import Logo from '../page/components/logo'
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import styles from '!style-loader!css-loader?modules!stylus-loader!../page/styles.styl'
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import '!style-loader!css-loader?modules!stylus-loader!./nav_bar_styles.styl'
+
+import createArgTypes from './create_arg_types'
+
 export default {
-  title: 'NavBar',
-  component: NavBar,
+    title: 'Nav Bar',
+    component: NavBarComponent,
+    argTypes: {
+        logo: createArgTypes({
+            controlType: null,
+        }),
+        leftAdditionalElements: createArgTypes({
+            controlType: null,
+        }),
+        rightAdditionalElements: createArgTypes({
+            controlType: null,
+        }),
+    },
 }
 
-const Template = (args) => <NavBar {...args} />
+const Template = (args) => <NavBarComponent {...args} />
 
-export const Defaul = Template.bind({})
-Defaul.args = {
+export const NavBar = Template.bind({})
+NavBar.args = {
+    logo: <Logo />,
     linkList: [
         {
             text: 'NEW',
             path: '/new',
             isBold: true,
             withNotificationDot: true,
+            hoverBgClassName: styles['new-block-bg'],
+            customRow: {
+                children: (
+                    <div className={cn(styles['new-block'], styles['new-block-bg'])}>
+                        <p className={styles['header']}>
+                            SPRING
+                            <br />
+                            COLLECTION
+                        </p>
+                        <p className={styles['text']}>
+                            Spring is in the air and with it
+                            <br />
+                            comes our brand new collection
+                            <br />
+                            of active wear for any weather.
+                        </p>
+                        <Link
+                            forceUseDefaulLinkTag
+                            path="/new-spring-collection"
+                            text="BROWSE"
+                            className={styles['link']}
+                        />
+                    </div>
+                ),
+            },
         },
         {
             text: 'WOMEN',
@@ -94,6 +141,73 @@ Defaul.args = {
                     ],
                 ],
             ],
+            banner: (
+                <div className={styles['banner']}>
+                    <p className={styles['discount']}>
+                        30% ALL SOCKS
+                    </p>
+                    <p className={styles['promo-code']}>
+                        USE CODE 30SOCKS
+                    </p>
+                </div>
+            ),
+            recentlyViewed: [
+                {
+                    path: '/recently_viewed_1',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-1']),
+                },
+                {
+                    path: '/recently_viewed_2',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-2']),
+                },
+                {
+                    path: '/recently_viewed_3',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-3']),
+                },
+                {
+                    path: '/recently_viewed_4',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-4']),
+                },
+                {
+                    path: '/recently_viewed_5',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-5']),
+                },
+                {
+                    path: '/recently_viewed_6',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-6']),
+                },
+            ],
+            customRow: {
+                title: 'FOR YOU',
+                children: (
+                    <div className={styles['for-you-list']}>
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                    </div>
+                ),
+            },
         },
         {
             text: 'MEN',
@@ -103,27 +217,63 @@ Defaul.args = {
                 [
                     [
                         {
-                            text: 'BLA',
+                            text: 'THING',
                             isBold: true,
                         },
                         {
-                            text: 'bla 1',
-                            path: '/bla 1',
+                            text: 'Thing 1',
+                            path: '/thing 1',
                         },
                         {
-                            text: 'bla 2',
-                            path: '/bla 2',
+                            text: 'Thing 2',
+                            path: '/thing 2',
                         },
                         {
-                            text: 'bla 3',
-                            path: '/bla 3',
+                            text: 'Thing 3',
+                            path: '/thing 3',
                         },
                         {
-                            text: 'bla 4',
-                            path: '/bla 4',
+                            text: 'Thing 4',
+                            path: '/thing 4',
                         },
                     ],
                 ],
+            ],
+            banner: (
+                <div className={styles['banner']}>
+                    <p className={styles['discount']}>
+                        30% ALL SOCKS
+                    </p>
+                    <p className={styles['promo-code']}>
+                        USE CODE 30SOCKS
+                    </p>
+                </div>
+            ),
+            recentlyViewed: [
+                {
+                    path: '/recently_viewed_1',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-1']),
+                },
+                {
+                    path: '/recently_viewed_2',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-2']),
+                },
+                {
+                    path: '/recently_viewed_3',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-3']),
+                },
+                {
+                    path: '/recently_viewed_4',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-4']),
+                },
+                {
+                    path: '/recently_viewed_5',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-5']),
+                },
+                {
+                    path: '/recently_viewed_6',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-6']),
+                },
             ],
         },
         {
@@ -201,6 +351,47 @@ Defaul.args = {
                     ],
                 ],
             ],
+            banner: (
+                <div className={styles['banner']}>
+                    <p className={styles['discount']}>
+                        30% ALL SOCKS
+                    </p>
+                    <p className={styles['promo-code']}>
+                        USE CODE 30SOCKS
+                    </p>
+                </div>
+            ),
+            customRow: {
+                title: 'FOR YOU',
+                children: (
+                    <div className={styles['for-you-list']}>
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                    </div>
+                ),
+            },
         },
         {
             text: 'COLLECTIONS',
@@ -276,6 +467,63 @@ Defaul.args = {
                     ],
                 ],
             ],
+            recentlyViewed: [
+                {
+                    path: '/recently_viewed_1',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-1']),
+                },
+                {
+                    path: '/recently_viewed_2',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-2']),
+                },
+                {
+                    path: '/recently_viewed_3',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-3']),
+                },
+                {
+                    path: '/recently_viewed_4',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-4']),
+                },
+                {
+                    path: '/recently_viewed_5',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-5']),
+                },
+                {
+                    path: '/recently_viewed_6',
+                    className: cn(styles['recently-viewed'], styles['recently-viewed-6']),
+                },
+            ],
+            customRow: {
+                title: 'FOR YOU',
+                children: (
+                    <div className={styles['for-you-list']}>
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                        <div className={styles['banner']}>
+                            <p className={styles['discount']}>
+                                30% ALL SOCKS
+                            </p>
+                            <p className={styles['promo-code']}>
+                                USE CODE 30SOCKS
+                            </p>
+                        </div>
+                    </div>
+                ),
+            },
         },
         {
             text: 'OUTFITS',
@@ -351,6 +599,16 @@ Defaul.args = {
                     ],
                 ],
             ],
+            banner: (
+                <div className={styles['banner']}>
+                    <p className={styles['discount']}>
+                        30% ALL SOCKS
+                    </p>
+                    <p className={styles['promo-code']}>
+                        USE CODE 30SOCKS
+                    </p>
+                </div>
+            ),
         },
         {
             text: 'ACCESSORIES',
@@ -432,5 +690,15 @@ Defaul.args = {
             path: '/about',
         },
     ],
+
+    useSimpleSearch: true,
+    useFullSearch: false,
+    showShoppingBagIcon: true,
+    hasSomethingInShoppingBag: true,
     forceUseDefaulLinkTag: true,
+}
+NavBar.parameters = {
+    backgrounds: {
+        default: 'dark',
+    },
 }

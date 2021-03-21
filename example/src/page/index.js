@@ -224,24 +224,24 @@ export default function DefaultPage() {
                             [
                                 [
                                     {
-                                        text: 'BLA',
+                                        text: 'THING',
                                         isBold: true,
                                     },
                                     {
-                                        text: 'bla 1',
-                                        path: '/bla 1',
+                                        text: 'Thing 1',
+                                        path: '/thing 1',
                                     },
                                     {
-                                        text: 'bla 2',
-                                        path: '/bla 2',
+                                        text: 'Thing 2',
+                                        path: '/thing 2',
                                     },
                                     {
-                                        text: 'bla 3',
-                                        path: '/bla 3',
+                                        text: 'Thing 3',
+                                        path: '/thing 3',
                                     },
                                     {
-                                        text: 'bla 4',
-                                        path: '/bla 4',
+                                        text: 'Thing 4',
+                                        path: '/thing 4',
                                     },
                                 ],
                             ],

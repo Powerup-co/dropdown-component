@@ -88,7 +88,7 @@ SearchResultWithDetails.propTypes = {
         })),
         count: PropTypes.number,
         linkToAllResults: PropTypes.string,
-    }).isRequired,
+    }),
 
     className: PropTypes.string,
     /**
