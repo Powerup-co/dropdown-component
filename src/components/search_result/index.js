@@ -73,7 +73,7 @@ SearchResult.propTypes = {
             PropTypes.node,
             PropTypes.array,
         ]),
-    })),
+    })).isRequired,
 
     className: PropTypes.string,
     forceUseDefaulLinkTag: PropTypes.bool,

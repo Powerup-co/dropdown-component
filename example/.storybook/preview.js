@@ -6,8 +6,8 @@ export const parameters = {
                 'Link',
                 'Nav Bar Link',
                 'Recently Viewed',
-
-
+                'Search Result',
+                'Search Result With Details',
                 'NavBar',
             ],
         },
