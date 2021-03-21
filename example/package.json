@@ -20,6 +20,7 @@
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
+    "storybook-addon-react-docgen": "^1.2.42",
     "stylus-loader": "^4.0.0"
   },
   "devDependencies": {
