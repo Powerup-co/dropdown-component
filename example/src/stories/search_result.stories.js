@@ -4,25 +4,18 @@ import {SearchResult as SearchResultComponent} from 'dropdown-component'
 
 import createArgTypes from './create_arg_types'
 
+SearchResultComponent.__docgenInfo.props.searchResult.type.value.value['...otherProps'] = {
+    name: 'NavBarLink',
+    required: false,
+}
+
 export default {
     title: 'Search Result',
     component: SearchResultComponent,
     argTypes: {
         searchResult: createArgTypes({
-            description: 'To make the text bold, you need to wrap it with `**` (markdown notation)or pass an array of objects in the text parameter, where normalText displays plain text, and boldText - bold. `[{normalText: string}, {boldText: string}]`',
-            isRequired: true,
-            typeName: 'Array<NavBarLink>',
-            defaultValue: SearchResultComponent?.defaultProps?.searchResult,
-        }),
-        className: createArgTypes({
-            typeName: 'String',
-            defaultValue: SearchResultComponent?.defaultProps?.className,
-            controlType: 'text',
-        }),
-        forceUseDefaulLinkTag: createArgTypes({
-            description: 'If you are not using react-router or want the link to work as usual, then set to "True"',
-            typeName: 'Boolean',
-            defaultValue: SearchResultComponent?.defaultProps?.forceUseDefaulLinkTag,
+            typeName: '[{ text: node | array | string, ...otherProps: NavBarLink }]',
+            typeNameDetail: null,
         }),
     },
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import Link from '../link'
 import NavBarLink from '../nav_bar_link'
 
 import SearchIcon from '../../svg/search.svg'
@@ -66,15 +65,25 @@ export default function SearchResult({
 }
 
 SearchResult.propTypes = {
+    /**
+     * To make the text bold, you need to wrap it with `**` (markdown notation)or pass an array of objects in the text parameter, where normalText displays plain text, and boldText - bold. `[{normalText: string}, {boldText: string}]`
+     */
     searchResult: PropTypes.arrayOf(PropTypes.shape({
-        ...Link.propTypes,
         ...NavBarLink.propTypes,
         text: PropTypes.oneOfType([
             PropTypes.node,
             PropTypes.array,
+            PropTypes.string,
         ]),
     })).isRequired,
 
     className: PropTypes.string,
+    /**
+     * If you are not using react-router or want the link to work as usual, then set to `True`
+     */
     forceUseDefaulLinkTag: PropTypes.bool,
+}
+
+SearchResult.defaultProps = {
+    forceUseDefaulLinkTag: false,
 }
