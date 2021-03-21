@@ -5,7 +5,7 @@ import {Link as LinkComponent} from 'dropdown-component'
 import createArgTypes from './create_arg_types'
 
 export default {
-    title: 'Navigation/Link',
+    title: 'Link',
     component: LinkComponent,
     argTypes: {
         path: createArgTypes({

@@ -4,7 +4,7 @@ import NavBar from 'dropdown-component'
 import 'dropdown-component/dist/index.css'
 
 export default {
-  title: 'Navigation/NavBar',
+  title: 'NavBar',
   component: NavBar,
 }
 

@@ -1,4 +1,5 @@
 import cleanDeep from 'clean-deep'
+import {encode} from 'html-entities'
 
 export default ({
     description,
@@ -8,7 +9,7 @@ export default ({
     controlType,
 }) => cleanDeep(
     {
-        description: description,
+        description: encode(description),
         type: {
             required: isRequired,
         },

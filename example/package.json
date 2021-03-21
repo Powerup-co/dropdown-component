@@ -16,6 +16,7 @@
     "axios": "^0.21.1",
     "clean-deep": "^3.4.0",
     "dropdown-component": "link:..",
+    "html-entities": "^2.1.1",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
