@@ -14,7 +14,7 @@ module.exports = {
     // ],
     plugins: [
         '@babel/plugin-syntax-jsx',
-        'babel-plugin-stylus',
+        // 'babel-plugin-stylus',
         'inline-react-svg',
         [
             'module-resolver',

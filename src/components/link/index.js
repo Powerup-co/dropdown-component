@@ -37,10 +37,23 @@ export default function CustomLink({
 }
 
 CustomLink.propTypes = {
+    /**
+     * Link's href
+     */
     path: PropTypes.string.isRequired,
 
     className: PropTypes.string,
     children: PropTypes.node,
-    text: PropTypes.node,
+    text: PropTypes.oneOfType([
+        PropTypes.node,
+        PropTypes.string,
+    ]),
+    /**
+     * If you are not using react-router or want the link to work as usual, then set to `True`
+     */
     forceUseDefaulLinkTag: PropTypes.bool,
+}
+
+CustomLink.defaultProps = {
+    forceUseDefaulLinkTag: false,
 }

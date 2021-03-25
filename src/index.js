@@ -265,7 +265,7 @@ export default function NavBar({
                             )
                         }
                         {
-                            !searchInProgress && !!searchResultWithDetails.count && (
+                            !searchInProgress && !!searchResultWithDetails?.count && (
                                 <SearchResultWithDetails
                                     className={styles['search-result-with-detail']}
                                     style={{
@@ -583,9 +583,7 @@ export default function NavBar({
 
 NavBar.propTypes = {
     linkList: PropTypes.arrayOf(PropTypes.shape({
-        ...Link.propTypes,
         ...NavBarLink.propTypes,
-        path: PropTypes.string,
     })).isRequired,
 
     logo: PropTypes.node,
@@ -603,11 +601,17 @@ NavBar.propTypes = {
     hasSomethingInShoppingBag: PropTypes.bool,
     mobileMainMenuAdditionalBlocks: PropTypes.shape({
         banner: PropTypes.node,
-        recentlyViewed: PropTypes.arrayOf(PropTypes.shape({
-            component: PropTypes.node,
-            ...NavBarLink.propTypes,
-        })),
+        recentlyViewed: RecentlyViewed.propTypes.recentlyViewedList,
     }),
+}
+
+NavBar.defaultProps = {
+    mobileMainMenuAdditionalBlocks: {},
+    forceUseDefaulLinkTag: false,
+    useSimpleSearch: false,
+    useFullSearch: false,
+    showShoppingBagIcon: false,
+    hasSomethingInShoppingBag: false,
 }
 
 function fixPage() {
@@ -622,4 +626,10 @@ function unfixPage() {
     window.scrollTo(0, parseInt(currentScrollY || '0') * -1)
 }
 
-export {Link}
+export {
+    Link,
+    NavBarLink,
+    RecentlyViewed,
+    SearchResult,
+    SearchResultWithDetails,
+}

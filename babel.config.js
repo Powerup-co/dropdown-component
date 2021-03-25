@@ -15,6 +15,7 @@ module.exports = {
         ],
     ],
     plugins: [
+        'react-docgen',
         '@babel/plugin-syntax-jsx',
         [
             'inline-react-svg',
