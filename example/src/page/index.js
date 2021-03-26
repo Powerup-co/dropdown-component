@@ -755,9 +755,9 @@ export default function DefaultPage() {
 
         setSearchResult(result
             .map(word => ({
-                // text: word.replace(searchText, `**${searchText}**`),
+                // text: word.replace(new RegExp(`(${searchText})`, 'gi'), `**$1**`)
                 text: word
-                    .replace(searchText, `**${searchText}**`)
+                    .replace(new RegExp(`(${searchText})`, 'gi'), `**$1**`)
                     .split('**')
                     .map((subString, idx) => idx % 2 === 0
                         ? {
@@ -796,6 +796,6 @@ async function searchWords(searchText) {
         })).data
             .sort(({score: a}, {score: b}) => b - a)
             .map(({word}) => word)
-            .filter(word => word.indexOf(searchText) !== -1)
+            .filter(word => word.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
         : Promise.resolve([])
 }
