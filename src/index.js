@@ -45,11 +45,10 @@ export default function NavBar({
     const [showFullSearch, setShowFullSearch] = useState(false)
     const [showMobileMenu, setShowMobileMenu] = useState(false)
     const [selectedMobileSubMenuIdx, setSelectedMobileSubMenuIdx] = useState(null)
-
-    // const [showMobileMenu, setShowMobileMenu] = useState(true)
-    // const [selectedMobileSubMenuIdx, setSelectedMobileSubMenuIdx] = useState(1)
+    const [showMobileSearch, setShowMobileSearch] = useState(false)
 
     const navBarRef = useRef(null)
+    const mobileSearchInput = useRef(null)
 
     return (
         <div className={cn(styles['nav-bar-bg'], bgClassName, hoverBgClassName)}>
@@ -364,12 +363,33 @@ export default function NavBar({
                                 [styles['convert-to-close']]: showMobileMenu,
                             }
                          )}
-                        onClick={toogleMobileMenu}
+                        onClick={
+                            showMobileSearch
+                                ? toogleMobileSearch
+                                : toogleMobileMenu
+                        }
                     />
                     {leftAdditionalElements}
                 </div>
-                {logo}
-                <div className={styles['nav-bar-right-block']}>
+                <div
+                    className={cn(
+                        styles['mobile-nav-bar-block'],
+                        {
+                            [styles['hide-mobile-nav-bar-block']]: showMobileMenu,
+                        }
+                    )}
+                >
+                    {logo}
+                </div>
+                <div
+                    className={cn(
+                        styles['nav-bar-right-block'],
+                        styles['mobile-nav-bar-block'],
+                        {
+                            [styles['hide-mobile-nav-bar-block']]: showMobileMenu,
+                        }
+                    )}
+                >
                     {rightAdditionalElements}
                     {
                         showShoppingBagIcon && (
@@ -396,6 +416,69 @@ export default function NavBar({
                         }
                     )}
                 >
+                    {
+                        (useSimpleSearch || useFullSearch) && (
+                            <div
+                                className={cn(
+                                    styles['mobile-search-wrapper'],
+                                    {
+                                        [styles['active-mobile-search']]: showMobileSearch,
+                                    }
+                                )}
+                            >
+                                <div className={styles['mobile-search-field-wrapper']}>
+                                    <label
+                                        htmlFor="mobile-search-field"
+                                        className={styles['search-button']}
+                                        onClick={showMobileSearch
+                                            ? undefined
+                                            : toogleMobileSearch
+                                        }
+                                    >
+                                        {
+                                            searchInProgress
+                                                ? <SpinnerIcon className={styles['search-icon']} />
+                                                : <SearchIcon className={styles['search-icon']} />
+                                        }
+                                    </label>
+                                    <input
+                                        id="mobile-search-field"
+                                        ref={mobileSearchInput}
+                                        value={searchText}
+                                        onChange={({target: {value}}) => {
+                                            setSearchText(value)
+
+                                            search(value)
+                                        }}
+                                        className={cn(
+                                            styles['mobile-search-field'],
+                                            {
+                                                [styles['show-mobile-search-field']]: showMobileSearch,
+                                            }
+                                        )}
+                                        autoComplete="off"
+                                    />
+                                </div>
+                                <div
+                                    className={cn(
+                                        styles['mobile-search-result']
+                                    )}
+                                >
+                                    {
+                                        !!searchText && !searchInProgress && !!searchResult?.length && (
+                                            <SearchResult
+                                                searchResult={searchResult.map(link => ({
+                                                    ...link,
+                                                    onClick: toogleMobileMenu,
+                                                }))}
+                                                forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                            />
+                                        )
+                                    }
+                                </div>
+                            </div>
+                        )
+                    }
                     {
                         linkList.map((
                             {
@@ -574,6 +657,19 @@ export default function NavBar({
             }
             else {
                 fixPage()
+            }
+
+            return !prevValue
+        })
+    }
+
+    function toogleMobileSearch() {
+        setShowMobileSearch(prevValue => {
+            if (!prevValue) {
+                mobileSearchInput?.current?.focus()
+            }
+            else {
+                mobileSearchInput?.current?.blur()
             }
 
             return !prevValue

@@ -23,7 +23,7 @@ export default function SearchResult({
             {
                 searchResult.map(link => (
                     <div
-                        key={link.path || link.text}
+                        key={link.path || convertBoldTextArrayToString(link.text)}
                         className={styles['search-link-wrapper']}
                     >
                         <SearchIcon className={styles['icon']} />
@@ -31,7 +31,7 @@ export default function SearchResult({
                             {...link}
                             className={cn(styles['search-link'], link.className)}
                             text={
-                                (typeof link.text == 'string' ? convertText(link.text) : link.text)
+                                (typeof link.text == 'string' ? convertTextToBoldArray(link.text) : link.text)
                                     .map((subString, idx) => (
                                         subString.normalText
                                             ? subString.normalText
@@ -50,7 +50,7 @@ export default function SearchResult({
         </div>
     )
 
-    function convertText(text) {
+    function convertTextToBoldArray(text) {
         return text
             .split('**')
             .map((subString, idx) => idx % 2 === 0
@@ -61,6 +61,14 @@ export default function SearchResult({
                     boldText: subString,
                 }
             )
+    }
+
+    function convertBoldTextArrayToString(text) {
+        return typeof text == 'string'
+            ? text
+            : text
+                .map(({normalText, boldText}) => boldText ? `**${boldText}**` : normalText)
+                .join('')
     }
 }
 
