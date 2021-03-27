@@ -518,8 +518,10 @@ $mobile-menu-transition-duration = 0.3s
         .mobile-search-field-wrapper
             display: flex
 
+            $search-button-width = 32px
+
             .search-button
-                width: 32px
+                width: $search-button-width
                 height: @width
                 border: none
                 background: none
@@ -538,12 +540,13 @@ $mobile-menu-transition-duration = 0.3s
                 font-size: 24px
                 border: none
                 padding: 0
-                margin-bottom -11px
+                margin-bottom: -11px
                 margin-left: 20px
                 opacity: 0
                 transition: opacity $mobile-menu-transition-duration
                 pointer-events: none
                 flex-grow: 1
+                max-width: 'calc(100vh - %s - %s)' % (@margin-left $search-button-width)
 
                 &.show-mobile-search-field
                     opacity: 1
