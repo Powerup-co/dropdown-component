@@ -47,6 +47,8 @@ export default function NavBar({
     const [selectedMobileSubMenuIdx, setSelectedMobileSubMenuIdx] = useState(null)
     const [showMobileSearch, setShowMobileSearch] = useState(false)
 
+    const [subNavBarBgHeight, setSubNavBarBgHeight] = useState(0)
+
     const navBarRef = useRef(null)
     const mobileSearchInput = useRef(null)
 
@@ -60,7 +62,15 @@ export default function NavBar({
                 <div
                     ref={navBarRef}
                     className={styles['nav-bar']}
+                    onMouseLeave={() => setSubNavBarBgHeight(0)}
                 >
+                    <div
+                        className={cn(styles['sub-nav-bar-bg'], bgClassName, hoverBgClassName)}
+                        style={{
+                            zIndex: 5,
+                            height: subNavBarBgHeight,
+                        }}
+                    />
                     {
                         linkList.map(({
                             subLinkList = [],
@@ -91,7 +101,8 @@ export default function NavBar({
                                         },
                                         link.className,
                                     )}
-                                    onMouseOver={() => {
+                                    onMouseOver={event => {
+                                        setSubNavBarBgHeight(event.target.nextSibling.clientHeight)
                                         setHoverMainNavBarLink(link.path || link.text)
                                         setHoverBgClassName(linkHoverBgClassName)
                                         setShowFullSearch(false)
@@ -111,7 +122,8 @@ export default function NavBar({
                                                 : 1
                                         )
                                     }}
-                                    onMouseOver={() => {
+                                    onMouseOver={event => {
+                                        setSubNavBarBgHeight(event.target.clientHeight)
                                         setHoverMainNavBarLink(link.path || link.text)
                                         setHoverBgClassName(linkHoverBgClassName)
                                         setShowFullSearch(false)

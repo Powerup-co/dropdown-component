@@ -57,9 +57,9 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
 
     display: flex
     align-items: center
+    margin-top: 33px
 
     > .nav-bar-link
-        margin-top: 33px
         padding-left: $padding-left
         padding-right: $padding-left
         padding-bottom: @margin-top
@@ -99,6 +99,18 @@ show-sub-nav-bar-content($initial-transform = null)
         transform: translateY(0)
         opacity: 1
 
+$sub-nav-bar-transition-duration = 0.2s
+
+.sub-nav-bar-bg
+    position: absolute
+    top: 100%
+    left: 50%
+    width: 100%
+    background: $white
+    transform: translateX(-50%)
+    height: 0
+    transition: height $sub-nav-bar-transition-duration
+
 .sub-nav-bar
     position: absolute
     top: 100%
@@ -108,7 +120,7 @@ show-sub-nav-bar-content($initial-transform = null)
     display: flex
     flex-direction: column
     align-items: center
-    transition: transform 0.2s
+    transition: transform $sub-nav-bar-transition-duration
     hide-sub-nav-bar-content(translateX(-50%))
     &:hover
         show-sub-nav-bar-content(translateX(-50%))
