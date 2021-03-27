@@ -411,6 +411,7 @@ $mobile-menu-transition-duration = 0.3s
     $padding-bottom = 50px
     $padding-side = 30px
 
+    .mobile-nav-bar-wrapper:after
     .mobile-links-list
     .mobile-sub-nav-bar
         padding: 0 $padding-side
@@ -419,9 +420,10 @@ $mobile-menu-transition-duration = 0.3s
         bottom: 'calc(100% - %s)' % ($nav-bar-height)
         background: $white
         overflow: hidden
+        z-index: $second-layer
         transition: bottom $mobile-menu-transition-duration linear,
-            left $mobile-menu-transition-duration linear,
-            right $mobile-menu-transition-duration linear,
+            left ($mobile-menu-transition-duration / 2) linear,
+            right ($mobile-menu-transition-duration / 2) linear,
             padding-bottom $mobile-menu-transition-duration linear
 
     .mobile-links-list
@@ -429,9 +431,12 @@ $mobile-menu-transition-duration = 0.3s
         right: 0
         background: $white
         overflow: hidden
+        opacity: 1
+        visibility: visible
         transition: bottom $mobile-menu-transition-duration linear,
             left $mobile-menu-transition-duration linear,
             right $mobile-menu-transition-duration linear,
+            opacity ($mobile-menu-transition-duration / 3) linear,
             padding-bottom $mobile-menu-transition-duration linear
 
         > *
@@ -447,8 +452,16 @@ $mobile-menu-transition-duration = 0.3s
                 opacity: 1
 
         &.mobile-links-list-move-left
-            left: calc(-100vw)
-            right: 100vw
+            left: -100px
+            right: 100px
+            opacity: 0
+            visibility: hidden
+            transition: bottom $mobile-menu-transition-duration linear,
+                left $mobile-menu-transition-duration linear,
+                right $mobile-menu-transition-duration linear,
+                visibility 0s linear ($mobile-menu-transition-duration / 3),
+                opacity ($mobile-menu-transition-duration / 3) linear,
+                padding-bottom $mobile-menu-transition-duration linear
 
         &.active-mobile-links-list
             ~ .mobile-sub-nav-bar
@@ -464,10 +477,17 @@ $mobile-menu-transition-duration = 0.3s
                 opacity: 0
 
     .mobile-sub-nav-bar
-        left: 100vw
-        right: calc(-2 * 100vw)
-        z-index: $first-layer
-        opacity: 1
+        left: 100px
+        right: -100px
+        z-index: $third-layer
+        opacity: 0
+        visibility: hidden
+        transition: bottom $mobile-menu-transition-duration linear,
+            left $mobile-menu-transition-duration linear,
+            right $mobile-menu-transition-duration linear,
+            visibility 0s linear ($mobile-menu-transition-duration / 3),
+            opacity ($mobile-menu-transition-duration / 3) linear,
+            padding-bottom $mobile-menu-transition-duration linear
 
         > *
             transition: opacity $mobile-menu-transition-duration 0.2s
@@ -477,6 +497,13 @@ $mobile-menu-transition-duration = 0.3s
             left: 0
             right: 0
             overflow: auto
+            opacity: 1
+            visibility: visible
+            transition: bottom $mobile-menu-transition-duration linear,
+                left $mobile-menu-transition-duration linear,
+                right $mobile-menu-transition-duration linear,
+                opacity ($mobile-menu-transition-duration / 3) linear,
+                padding-bottom $mobile-menu-transition-duration linear
 
             > *
                 opacity: 1
@@ -486,6 +513,7 @@ $mobile-menu-transition-duration = 0.3s
             display: block
             line-height: normal
             margin: 15px 0 5px
+            pointer-events: none
 
         .sub-nav-bar-col-separator
             width: 60px
@@ -567,3 +595,12 @@ $mobile-menu-transition-duration = 0.3s
 
             svg
                 display: none
+
+    .mobile-nav-bar-wrapper
+        &:after
+            content: ''
+            left: 0
+            right: 0
+            z-index: $first-layer
+        &.active-mobile-links-list:after
+            bottom: 0
