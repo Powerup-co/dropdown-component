@@ -64,13 +64,6 @@ export default function NavBar({
                     className={styles['nav-bar']}
                     onMouseLeave={() => setSubNavBarBgHeight(0)}
                 >
-                    <div
-                        className={cn(styles['sub-nav-bar-bg'], bgClassName, hoverBgClassName)}
-                        style={{
-                            zIndex: 5,
-                            height: subNavBarBgHeight,
-                        }}
-                    />
                     {
                         linkList.map(({
                             subLinkList = [],
@@ -206,6 +199,13 @@ export default function NavBar({
                             </Fragment>
                         ))
                     }
+                    <div
+                        className={cn(styles['sub-nav-bar-bg'], bgClassName, hoverBgClassName)}
+                        style={{
+                            zIndex: 5,
+                            height: subNavBarBgHeight,
+                        }}
+                    />
                     <div
                         className={cn(
                             styles['sub-nav-bar'],

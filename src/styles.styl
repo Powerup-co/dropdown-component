@@ -74,7 +74,7 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
             left: $padding-left
         &:after
             right: 'calc(%s - 5px)' % ($padding-left)
-    :nth-last-child(3)
+    :nth-last-child(4)
         padding-right: 0
         &:before
             width: 'calc(100% - %s)' % ($padding-left)
@@ -128,7 +128,7 @@ $sub-nav-bar-transition-duration = 0.2s
     .sub-nav-bar-row-wrapper
         display: flex
         justify-content: space-between
-        margin: 30px 0
+        margin-bottom: 30px
 
     .sub-nav-bar-row
         display: flex
@@ -145,7 +145,7 @@ $sub-nav-bar-transition-duration = 0.2s
     transition: color 0.3s
     &.sub-nav-bar-link
         display: inline-block
-        margin: 0 0 15px
+        margin: 0 0 5px
         font-size: 10px
         p&
             pointer-events: none
