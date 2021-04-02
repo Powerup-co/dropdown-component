@@ -4,6 +4,7 @@
 
 $nav-bar-height = 80px
 $nav-bar-max-width = $screen-xxl - 2 * 165px
+$distance-between-link-and-sub-menu = 33px
 
 .nav-bar-bg
     background: $white
@@ -42,6 +43,7 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
     display: flex
     align-items: center
     width: 0
+    z-index: $second-layer
 
     > *
         position: absolute
@@ -56,15 +58,29 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
     $padding-left = 12px
 
     display: flex
-    align-items: center
-    margin-top: 33px
+    align-items: flex-start
+    margin-top: $distance-between-link-and-sub-menu
 
     > .nav-bar-link
         padding-left: $padding-left
         padding-right: $padding-left
         padding-bottom: @margin-top
+        &.active
+            padding-left: 2 * $padding-left
+            padding-right: 2 * $padding-left
+            margin-left: -1 * $padding-left
+            margin-right: -1 * $padding-left
+            z-index: $first-layer
+            &:before
+                width: 'calc(100% - %s)' % (4 * $padding-left)
+                left: 2 * $padding-left
+
         &:first-child
             padding-left: 0
+            &.active
+                margin-left: 0
+                &:before
+                    width: 'calc(100% - %s)' % (2 * $padding-left)
             &:before
                 width: 'calc(100% - %s)' % ($padding-left)
                 left: 0
@@ -76,6 +92,14 @@ $nav-bar-max-width = $screen-xxl - 2 * 165px
             right: 'calc(%s - 5px)' % ($padding-left)
     :nth-last-child(4)
         padding-right: 0
+        &.active
+            padding-left: 2 * $padding-left
+            padding-right: 0
+            margin-left: -1 * $padding-left
+            margin-right: 0
+            &:before
+                width: 'calc(100% - %s)' % (2 * $padding-left)
+                left: 2 * $padding-left
         &:before
             width: 'calc(100% - %s)' % ($padding-left)
 
@@ -101,26 +125,26 @@ show-sub-nav-bar-content($initial-transform = null)
 
 $sub-nav-bar-transition-duration = 0.2s
 
+.sub-nav-bar
 .sub-nav-bar-bg
     position: absolute
     top: 100%
+    top: $nav-bar-height - $distance-between-link-and-sub-menu + 2px
     left: 50%
     width: 100%
     background: $white
+
+.sub-nav-bar-bg
     transform: translateX(-50%)
     height: 0
     transition: height $sub-nav-bar-transition-duration
 
 .sub-nav-bar
-    position: absolute
-    top: 100%
-    left: 50%
-    width: 100%
-    background: $white
     display: flex
     flex-direction: column
     align-items: center
     transition: transform $sub-nav-bar-transition-duration
+    padding-top: $distance-between-link-and-sub-menu
     hide-sub-nav-bar-content(translateX(-50%))
     &:hover
         show-sub-nav-bar-content(translateX(-50%))
@@ -308,7 +332,7 @@ $sub-nav-bar-transition-duration = 0.2s
 
 .full-search-block
     padding: 0
-    height: 'calc(100vh - %s)' % ($nav-bar-height)
+    height: 'calc(100vh - %s)' % ($nav-bar-height - $distance-between-link-and-sub-menu + 2px)
     &.show-full-search-block
         padding: 35px 0 40px
         show-sub-nav-bar-content(translateX(-50%))
