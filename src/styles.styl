@@ -189,10 +189,17 @@ $sub-nav-bar-transition-duration = 0.2s
 
     margin-bottom: 30px
 
+@media(min-width: $screen-lg - 1px)
+    .shopping-bag-icon
+    .search-simple-block .search-icon
+    .full-search-icon
+        width: 16px
+        height: @width
+
 .shopping-bag-icon
     margin-left: 15px
+    margin-right: 5px
     position: relative
-    padding-right: 5px
     &.with-notification-dot:after
         content: ''
         position: absolute
@@ -200,7 +207,7 @@ $sub-nav-bar-transition-duration = 0.2s
         width: 3px
         height: @width
         border-radius: 100%
-        right: 0
+        right: -5px
         top: 1px
 
 .search-simple-block
@@ -210,8 +217,6 @@ $sub-nav-bar-transition-duration = 0.2s
 
     .search-icon
         cursor: pointer
-        width: 16px
-        height: @width
         .spinner
             display: none
 
