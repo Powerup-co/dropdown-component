@@ -341,6 +341,7 @@ $sub-nav-bar-transition-duration = 0.2s
 .full-search-block
     padding: 0
     height: 'calc(100vh - %s)' % ($nav-bar-height - $distance-between-link-and-sub-menu + 2px)
+    z-index: $first-layer
     &.show-full-search-block
         padding: 35px 0 40px
         show-sub-nav-bar-content(translateX(-50%))
