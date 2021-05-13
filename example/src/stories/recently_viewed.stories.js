@@ -1,21 +1,21 @@
 import React from 'react'
 import cn from 'classnames'
 
-import {RecentlyViewed as RecentlyViewedComponent} from 'dropdown-component'
+import NavBar from 'dropdown-component'
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import styles from '!style-loader!css-loader?modules!stylus-loader!../page/recently_viewed.styl'
 
 import createArgTypes from './create_arg_types'
 
-RecentlyViewedComponent.__docgenInfo.props.recentlyViewedList.type.value.value['...otherProps'] = {
+NavBar.RecentlyViewed.__docgenInfo.props.recentlyViewedList.type.value.value['...otherProps'] = {
     name: 'NavBarLink',
     required: false,
 }
 
 export default {
     title: 'Recently Viewed',
-    component: RecentlyViewedComponent,
+    component: NavBar.RecentlyViewed,
     argTypes: {
         recentlyViewedList: createArgTypes({
             typeName: '[{ component: node, ...otherProps: NavBarLink }]',
@@ -24,7 +24,7 @@ export default {
     },
 }
 
-const Template = (args) => <RecentlyViewedComponent {...args} />
+const Template = (args) => <NavBar.RecentlyViewed {...args} />
 
 export const RecentlyViewed = Template.bind({})
 RecentlyViewed.args = {

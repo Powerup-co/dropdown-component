@@ -1,22 +1,22 @@
 import React from 'react'
 import {stripIndent} from 'common-tags'
 
-import {SearchResultWithDetails as SearchResultWithDetailsComponent} from 'dropdown-component'
+import NavBar from 'dropdown-component'
 
 import searchResultWithDetailsImg1 from '../page/images/search_result_with_details_img_1.png'
 
 import createArgTypes from './create_arg_types'
 
-console.log(SearchResultWithDetailsComponent.__docgenInfo)
+console.log(NavBar.SearchResultWithDetails.__docgenInfo)
 
-SearchResultWithDetailsComponent.__docgenInfo.props.searchResult.type.value.searchResultList.value.value['...otherProps'] = {
+NavBar.SearchResultWithDetails.__docgenInfo.props.searchResult.type.value.searchResultList.value.value['...otherProps'] = {
     name: 'Link',
     required: false,
 }
 
 export default {
     title: 'Search Result With Details',
-    component: SearchResultWithDetailsComponent,
+    component: NavBar.SearchResultWithDetails,
     argTypes: {
         searchResult: createArgTypes({
             typeNameDetail: stripIndent`
@@ -35,7 +35,7 @@ export default {
     },
 }
 
-const Template = (args) => <SearchResultWithDetailsComponent {...args} />
+const Template = (args) => <NavBar.SearchResultWithDetails {...args} />
 
 export const SearchResultWithDetails = Template.bind({})
 SearchResultWithDetails.args = {

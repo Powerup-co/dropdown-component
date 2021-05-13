@@ -3,7 +3,7 @@ import axios from 'axios'
 import qs from 'qs'
 import cn from 'classnames'
 
-import NavBar, {Link} from 'dropdown-component'
+import NavBar from 'dropdown-component'
 import 'dropdown-component/dist/index.css'
 
 import Logo from './components/logo'
@@ -63,7 +63,7 @@ export default function DefaultPage() {
                                         <br />
                                         of active wear for any weather.
                                     </p>
-                                    <Link
+                                    <NavBar.Link
                                         forceUseDefaulLinkTag
                                         path="/new-spring-collection"
                                         text="BROWSE"

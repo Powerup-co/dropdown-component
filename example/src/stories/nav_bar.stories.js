@@ -1,7 +1,7 @@
 import React from 'react'
 import cn from 'classnames'
 
-import NavBarComponent, {Link} from 'dropdown-component'
+import NavBarComponent from 'dropdown-component'
 import 'dropdown-component/dist/index.css'
 
 import Logo from '../page/components/logo'
@@ -56,7 +56,7 @@ NavBar.args = {
                             <br />
                             of active wear for any weather.
                         </p>
-                        <Link
+                        <NavBarComponent.Link
                             forceUseDefaulLinkTag
                             path="/new-spring-collection"
                             text="BROWSE"

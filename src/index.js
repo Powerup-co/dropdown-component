@@ -730,6 +730,12 @@ NavBar.defaultProps = {
     hasSomethingInShoppingBag: false,
 }
 
+NavBar.Link = Link
+NavBar.NavBarLink = NavBarLink
+NavBar.RecentlyViewed = RecentlyViewed
+NavBar.SearchResult = SearchResult
+NavBar.SearchResultWithDetails = SearchResultWithDetails
+
 function fixPage() {
     document.body.style.top = `-${window.scrollY}px` // eslint-disable-line
     document.body.style.position = 'fixed'
@@ -740,12 +746,4 @@ function unfixPage() {
     document.body.style.position = ''
     document.body.style.top = ''
     window.scrollTo(0, parseInt(currentScrollY || '0') * -1)
-}
-
-export {
-    Link,
-    NavBarLink,
-    RecentlyViewed,
-    SearchResult,
-    SearchResultWithDetails,
 }
