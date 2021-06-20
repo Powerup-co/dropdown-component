@@ -40,6 +40,7 @@ export default function NavBar({
 }) {
     const [hoverMainNavBarLink, setHoverMainNavBarLink] = useState(null)
     const [hoverBgClassName, setHoverBgClassName] = useState(null)
+    const [hoverBgColor, setHoverBgColor] = useState(null)
     const [searchText, setSearchText] = useState('')
     const [searchInProgress, setSearchInProgress] = useState(false)
     const [showFullSearch, setShowFullSearch] = useState(false)
@@ -53,7 +54,16 @@ export default function NavBar({
     const mobileSearchInput = useRef(null)
 
     return (
-        <div className={cn(styles['nav-bar-bg'], bgClassName, hoverBgClassName)}>
+        <div
+            className={cn(
+                styles['nav-bar-bg'],
+                bgClassName,
+                hoverBgClassName,
+            )}
+            style={{
+                backgroundColor: hoverBgColor,
+            }}
+        >
             <div className={cn(styles['desktop-nav-bar-wrapper'], className)}>
                 <div className={styles['nav-bar-left-block']}>
                     {logo}
@@ -71,6 +81,7 @@ export default function NavBar({
                             recentlyViewed = [],
                             customRow,
                             hoverBgClassName: linkHoverBgClassName,
+                            hoverBgColor: linkHoverBgColor,
                             ...link
                         }) => (
                             <Fragment key={link.path || link.text}>
@@ -98,11 +109,13 @@ export default function NavBar({
                                         setSubNavBarBgHeight(event.target.nextSibling.clientHeight)
                                         setHoverMainNavBarLink(link.path || link.text)
                                         setHoverBgClassName(linkHoverBgClassName)
+                                        setHoverBgColor(linkHoverBgColor)
                                         setShowFullSearch(false)
                                     }}
                                     onMouseLeave={() => {
                                         setHoverMainNavBarLink(null)
                                         setHoverBgClassName(null)
+                                        setHoverBgColor(null)
                                         setShowFullSearch(false)
                                     }}
                                 />
@@ -113,17 +126,20 @@ export default function NavBar({
                                             hoverMainNavBarLink
                                                 ? (link.path || link.text) === hoverMainNavBarLink ? 10 : 1
                                                 : 1
-                                        )
+                                        ),
+                                        backgroundColor: hoverBgColor,
                                     }}
                                     onMouseOver={event => {
                                         setSubNavBarBgHeight(event.target.clientHeight)
                                         setHoverMainNavBarLink(link.path || link.text)
                                         setHoverBgClassName(linkHoverBgClassName)
+                                        setHoverBgColor(linkHoverBgColor)
                                         setShowFullSearch(false)
                                     }}
                                     onMouseLeave={() => {
                                         setHoverMainNavBarLink(null)
                                         setHoverBgClassName(null)
+                                        setHoverBgColor(null)
                                         setShowFullSearch(false)
                                     }}
                                 >
@@ -204,6 +220,7 @@ export default function NavBar({
                         style={{
                             zIndex: 5,
                             height: subNavBarBgHeight,
+                            backgroundColor: hoverBgColor,
                         }}
                     />
                     <div
@@ -507,6 +524,7 @@ export default function NavBar({
                                 recentlyViewed = [],
                                 customRow,
                                 hoverBgClassName: linkHoverBgClassName,
+                                hoverBgColor: linkHoverBgColor,
                                 ...link
                             },
                             linkIdx
@@ -567,6 +585,7 @@ export default function NavBar({
                             recentlyViewed = [],
                             customRow,
                             hoverBgClassName: linkHoverBgClassName,
+                            hoverBgColor: linkHoverBgColor,
                             ...link
                         },
                         linkIdx
@@ -581,6 +600,9 @@ export default function NavBar({
                                 bgClassName,
                                 hoverBgClassName,
                             )}
+                            style={{
+                                backgroundColor: hoverBgColor,
+                            }}
                         >
                             {
                                 subLinkList.map((row, rowIdx) => (
