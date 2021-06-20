@@ -12,6 +12,11 @@ $distance-between-link-and-sub-menu = 33px
     box-shadow: 0px 4px 25px rgba($black, 0.15)
     position: relative
 
+    label
+        margin: 0
+    input
+        max-width: none
+
 .desktop-nav-bar-wrapper
 .mobile-nav-bar-wrapper
     height: $nav-bar-height
@@ -396,6 +401,7 @@ $mobile-menu-transition-duration = 0.1s
 
 :export
     mobileMenuTransitionDuration $mobile-menu-transition-duration
+    navBarHeight $nav-bar-height
 
 @media(max-width: $screen-lg - 1px)
     .mobile-nav-bar-wrapper
@@ -624,6 +630,7 @@ $mobile-menu-transition-duration = 0.1s
                 pointer-events: none
                 flex-grow: 1
                 max-width: 'calc(100vh - %s - %s)' % (@margin-left $search-button-width)
+                background: transparent
 
                 &.show-mobile-search-field
                     opacity: 1

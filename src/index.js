@@ -19,6 +19,7 @@ import ArrowIcon from './svg/arrow.svg'
 import styles from './styles.styl'
 
 const mobileMenuTransitionDuration = Number(styles.mobileMenuTransitionDuration.replace('s', '')) * 1000
+const navBarHeight = Number(styles.navBarHeight.replace('px', ''))
 
 export default function NavBar({
     linkList,
@@ -50,11 +51,13 @@ export default function NavBar({
 
     const [subNavBarBgHeight, setSubNavBarBgHeight] = useState(0)
 
+    const wrapperNavBarRef = useRef(null)
     const navBarRef = useRef(null)
     const mobileSearchInput = useRef(null)
 
     return (
         <div
+            ref={wrapperNavBarRef}
             className={cn(
                 styles['nav-bar-bg'],
                 bgClassName,
@@ -452,6 +455,12 @@ export default function NavBar({
                             [styles['mobile-links-list-move-left']]: selectedMobileSubMenuIdx !== null,
                         }
                     )}
+                    style={{
+                        top: `${navBarHeight + (wrapperNavBarRef?.current
+                            ? wrapperNavBarRef.current.getBoundingClientRect().top
+                            : 0
+                        )}px`,
+                    }}
                 >
                     {
                         (useSimpleSearch || useFullSearch) && (
