@@ -85,6 +85,11 @@ export default function NavBar({
                             customRow,
                             hoverBgClassName: linkHoverBgClassName,
                             hoverBgColor: linkHoverBgColor,
+                            subNavBarSortingComponents = [
+                                NavBar.subNavBarSortingComponentOptions.subLinkList,
+                                NavBar.subNavBarSortingComponentOptions.recentlyViewed,
+                                NavBar.subNavBarSortingComponentOptions.customRow,
+                            ],
                             ...link
                         }) => (
                             <Fragment key={link.path || link.text}>
@@ -153,6 +158,9 @@ export default function NavBar({
                                                 className={styles['sub-nav-bar-row-wrapper']}
                                                 style={{
                                                     minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
+                                                    order: subNavBarSortingComponents.indexOf(NavBar.subNavBarSortingComponentOptions.subLinkList) == -1
+                                                        ? 1000
+                                                        : subNavBarSortingComponents.indexOf(NavBar.subNavBarSortingComponentOptions.subLinkList),
                                                 }}
                                             >
                                                 <div className={styles['sub-nav-bar-row']}>
@@ -189,6 +197,9 @@ export default function NavBar({
                                             <RecentlyViewed
                                                 style={{
                                                     minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
+                                                    order: subNavBarSortingComponents.indexOf(NavBar.subNavBarSortingComponentOptions.recentlyViewed) == -1
+                                                        ? 1000
+                                                        : subNavBarSortingComponents.indexOf(NavBar.subNavBarSortingComponentOptions.recentlyViewed),
                                                 }}
                                                 recentlyViewedList={recentlyViewed}
                                                 forceUseDefaulLinkTag={forceUseDefaulLinkTag}
@@ -201,6 +212,9 @@ export default function NavBar({
                                                 className={styles['custom-row']}
                                                 style={{
                                                     minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
+                                                    order: subNavBarSortingComponents.indexOf(NavBar.subNavBarSortingComponentOptions.customRow) == -1
+                                                        ? 1000
+                                                        : subNavBarSortingComponents.indexOf(NavBar.subNavBarSortingComponentOptions.customRow),
                                                 }}
                                             >
                                                 {
@@ -726,6 +740,12 @@ export default function NavBar({
             return !prevValue
         })
     }
+}
+
+NavBar.subNavBarSortingComponentOptions = {
+    subLinkList: 'subLinkList',
+    recentlyViewed: 'recentlyViewed',
+    customRow: 'customRow',
 }
 
 NavBar.propTypes = {

@@ -77,6 +77,11 @@ export default function DefaultPage() {
                         text: 'WOMEN',
                         path: '/women',
                         isBold: true,
+                        subNavBarSortingComponents: [
+                            NavBar.subNavBarSortingComponentOptions.customRow,
+                            NavBar.subNavBarSortingComponentOptions.recentlyViewed,
+                            NavBar.subNavBarSortingComponentOptions.subLinkList,
+                        ],
                         subLinkList: [
                             [
                                 [
