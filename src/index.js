@@ -797,13 +797,9 @@ NavBar.SearchResult = SearchResult
 NavBar.SearchResultWithDetails = SearchResultWithDetails
 
 function fixPage() {
-    document.body.style.top = `-${window.scrollY}px` // eslint-disable-line
-    document.body.style.position = 'fixed'
+    document.body.style.overflow = 'hidden'
 }
 
 function unfixPage() {
-    const currentScrollY = document.body.style.top
-    document.body.style.position = ''
-    document.body.style.top = ''
-    window.scrollTo(0, parseInt(currentScrollY || '0') * -1)
+    document.body.style.overflow = ''
 }
