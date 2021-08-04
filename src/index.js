@@ -377,7 +377,16 @@ export default function NavBar({
                                     },
                                 )}
                                 htmlFor="nav-bar-full-search-field"
-                                onClick={() => setShowFullSearch(!showFullSearch)}
+                                onClick={() => {
+                                    setShowFullSearch(!showFullSearch)
+
+                                    if (showFullSearch) {
+                                        unfixPage()
+                                    }
+                                    else {
+                                        fixPage()
+                                    }
+                                }}
                             >
                                 <SearchIcon className={styles['icon']} />
                             </label>
