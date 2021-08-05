@@ -118,13 +118,13 @@ export default function NavBar({
                                         setHoverMainNavBarLink(link.path || link.text)
                                         setHoverBgClassName(linkHoverBgClassName)
                                         setHoverBgColor(linkHoverBgColor)
-                                        setShowFullSearch(false)
+                                        toogleFullSearch(false)
                                     }}
                                     onMouseLeave={() => {
                                         setHoverMainNavBarLink(null)
                                         setHoverBgClassName(null)
                                         setHoverBgColor(null)
-                                        setShowFullSearch(false)
+                                        toogleFullSearch(false)
                                     }}
                                 />
                                 <div
@@ -142,13 +142,13 @@ export default function NavBar({
                                         setHoverMainNavBarLink(link.path || link.text)
                                         setHoverBgClassName(linkHoverBgClassName)
                                         setHoverBgColor(linkHoverBgColor)
-                                        setShowFullSearch(false)
+                                        toogleFullSearch(false)
                                     }}
                                     onMouseLeave={() => {
                                         setHoverMainNavBarLink(null)
                                         setHoverBgClassName(null)
                                         setHoverBgColor(null)
-                                        setShowFullSearch(false)
+                                        toogleFullSearch(false)
                                     }}
                                 >
                                     {
@@ -294,7 +294,7 @@ export default function NavBar({
                             </div>
                             <CloseIcon
                                 className={styles['close-icon']}
-                                onClick={() => setShowFullSearch(false)}
+                                onClick={() => toogleFullSearch(false)}
                             />
                         </div>
                         {
@@ -377,16 +377,7 @@ export default function NavBar({
                                     },
                                 )}
                                 htmlFor="nav-bar-full-search-field"
-                                onClick={() => {
-                                    setShowFullSearch(!showFullSearch)
-
-                                    if (showFullSearch) {
-                                        unfixPage()
-                                    }
-                                    else {
-                                        fixPage()
-                                    }
-                                }}
+                                onClick={() => toogleFullSearch()}
                             >
                                 <SearchIcon className={styles['icon']} />
                             </label>
@@ -748,6 +739,19 @@ export default function NavBar({
 
             return !prevValue
         })
+    }
+
+    function toogleFullSearch(value) {
+        const currentValue = value != undefined ? value : !showFullSearch
+
+        setShowFullSearch(currentValue)
+
+        if (currentValue) {
+            fixPage()
+        }
+        else {
+            unfixPage()
+        }
     }
 }
 
