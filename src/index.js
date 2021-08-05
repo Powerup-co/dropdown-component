@@ -312,7 +312,14 @@ export default function NavBar({
                         {
                             !searchInProgress && !!searchResultWithDetails?.count && (
                                 <SearchResultWithDetails
-                                    className={styles['search-result-with-detail']}
+                                    className={cn(
+                                        styles['search-result-with-detail'],
+                                        {
+                                            [styles['search-result-with-detail-with-border']]: !!(
+                                                searchResult?.length && searchResultWithDetails?.count
+                                            ),
+                                        }
+                                    )}
                                     style={{
                                         minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
                                     }}
