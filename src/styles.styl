@@ -345,9 +345,7 @@ $sub-nav-bar-transition-duration = 0.2s
 
 .full-search-block
     padding: 0
-    height: 'calc(100vh - %s)' % ($nav-bar-height - $distance-between-link-and-sub-menu + 2px)
     z-index: $first-layer
-    overflow: auto
     &.show-full-search-block
         padding: 35px 0 40px
         show-sub-nav-bar-content(translateX(-50%))
@@ -355,6 +353,10 @@ $sub-nav-bar-transition-duration = 0.2s
         hide-sub-nav-bar-content(translateX(-50%))
         > *
             transition: opacity 0s 0s
+
+    .full-search-block-results
+        margin-top: 30px
+        overflow: auto
 
     .search-field-block
         display: flex
@@ -388,7 +390,6 @@ $sub-nav-bar-transition-duration = 0.2s
             cursor: pointer
 
     .search-result
-        margin-top: 30px
         padding: 0 20px
 
     .search-result-with-detail

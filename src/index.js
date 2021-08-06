@@ -249,6 +249,11 @@ export default function NavBar({
                             },
                             bgClassName
                         )}
+                        style={{
+                            position: 'fixed',
+                            top: wrapperNavBarRef.current?.getBoundingClientRect().bottom,
+                            bottom: 0,
+                        }}
                     >
                         <div
                             className={styles['search-field-block']}
@@ -297,37 +302,39 @@ export default function NavBar({
                                 onClick={() => toogleFullSearch(false)}
                             />
                         </div>
-                        {
-                            !searchInProgress && !!searchResult?.length && (
-                                <SearchResult
-                                    className={styles['search-result']}
-                                    style={{
-                                        minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
-                                    }}
-                                    searchResult={searchResult}
-                                    forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                />
-                            )
-                        }
-                        {
-                            !searchInProgress && !!searchResultWithDetails?.count && (
-                                <SearchResultWithDetails
-                                    className={cn(
-                                        styles['search-result-with-detail'],
-                                        {
-                                            [styles['search-result-with-detail-with-border']]: !!(
-                                                searchResult?.length && searchResultWithDetails?.count
-                                            ),
-                                        }
-                                    )}
-                                    style={{
-                                        minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
-                                    }}
-                                    searchResult={searchResultWithDetails}
-                                    forceUseDefaulLinkTag={forceUseDefaulLinkTag}
-                                />
-                            )
-                        }
+                        <div className={styles['full-search-block-results']}>
+                            {
+                                !searchInProgress && !!searchResult?.length && (
+                                    <SearchResult
+                                        className={styles['search-result']}
+                                        style={{
+                                            minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
+                                        }}
+                                        searchResult={searchResult}
+                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                    />
+                                )
+                            }
+                            {
+                                !searchInProgress && !!searchResultWithDetails?.count && (
+                                    <SearchResultWithDetails
+                                        className={cn(
+                                            styles['search-result-with-detail'],
+                                            {
+                                                [styles['search-result-with-detail-with-border']]: !!(
+                                                    searchResult?.length && searchResultWithDetails?.count
+                                                ),
+                                            }
+                                        )}
+                                        style={{
+                                            minWidth: Math.max(595, navBarRef?.current?.clientWidth || 0),
+                                        }}
+                                        searchResult={searchResultWithDetails}
+                                        forceUseDefaulLinkTag={forceUseDefaulLinkTag}
+                                    />
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
                 <div className={styles['nav-bar-right-block']}>
